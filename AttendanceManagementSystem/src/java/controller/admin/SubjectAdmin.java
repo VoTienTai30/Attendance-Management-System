@@ -5,12 +5,15 @@
  */
 package controller.admin;
 
+import dal.SubjectDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Subject;
 
 /**
  *
@@ -21,12 +24,21 @@ public class SubjectAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String code = request.getParameter("code");
+        SubjectDBContext db = new SubjectDBContext();
+        ArrayList<Subject> list = db.getSubject("");
+        request.setAttribute("list", list);
         request.getRequestDispatcher("../view/admin/subject_admin.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String code = request.getParameter("code");
+        SubjectDBContext db = new SubjectDBContext();
+        ArrayList<Subject> list = db.getSubject(code);
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("../view/admin/subject_admin.jsp").forward(request, response);
     }
 
     @Override

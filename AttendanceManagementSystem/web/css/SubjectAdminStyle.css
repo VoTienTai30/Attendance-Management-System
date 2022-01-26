@@ -67,7 +67,8 @@ header {
 #add-subject {
     background: #fff;
     width: 30%;
-    border-radius: 5px;
+    border-radius: 7px;
+    max-height: 290.2px;
 }
 
 .subject-title {
@@ -75,8 +76,8 @@ header {
     background: #f7f7f7;
     border-bottom: 1px solid #e2e2e2;
     padding: 15px 20px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     font-weight: bold;
     text-align: center;
 }
@@ -104,7 +105,7 @@ header {
 #save-btn input {
     font-size: 15px;
     padding: 10px 25px;
-    border-radius: 5px;
+    border-radius: 7px;
     border: 0;
     background: rgb(244, 116, 36);
     margin-top: 15px;
@@ -113,6 +114,6 @@ header {
 
 #subject-list {
     width: 60%;
-    border-radius: 5px;
+    border-radius: 7px;
     background: #fff;
 }

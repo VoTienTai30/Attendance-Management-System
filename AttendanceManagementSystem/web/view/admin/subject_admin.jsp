@@ -4,6 +4,8 @@
     Author     : midni
 --%>
 
+<%@page import="model.Subject"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +14,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Subject</title>
         <link href="../css/SubjectAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%Account acc = (Account) request.getSession().getAttribute("account");%>
+        <%
+            Account acc = (Account) request.getSession().getAttribute("account");
+            ArrayList<Subject> list = (ArrayList<Subject>) request.getAttribute("list");
+        %>
     </head>
     <body>
         <header>
@@ -73,6 +78,37 @@
             </div>
             <div id="subject-list">
                 <div class="subject-title">Subject List</div>
+                <form action="../admin/subject" method="post">
+                    <input name="code" placeholder="Search by subject code" type="text">
+                    <input type="submit" value="Search">
+                </form>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>Subject Code</th>
+                        <th>Subject Name</th>
+                        <th>Total Slot</th>
+                        <th>Semester</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                    </tr>
+                    <%
+                        for (int i = 0; i < list.size(); i++) {
+                            Subject subject = list.get(i);
+                    %>
+                    <tr>
+                        <td><%=i + 1%></td>
+                        <td><%=subject.getSubjectCode()%></td>
+                        <td><%=subject.getSubjectName()%></td>
+                        <td><%=subject.getTotalSlot()%></td>
+                        <td><%=subject.getSemester().getSemesterName()%></td>
+                        <td>#</td>
+                        <td>#</td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </table>
             </div>
         </div>
     </body>
