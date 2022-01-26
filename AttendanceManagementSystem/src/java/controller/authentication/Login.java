@@ -19,30 +19,13 @@ import model.Account;
  * @author midni
  */
 public class Login extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("view/authentication/login.jsp").forward(request, response);
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,12 +34,19 @@ public class Login extends HttpServlet {
         AccountDBContext AccountDB = new AccountDBContext();
         Account acc = AccountDB.getAccount(user, pass);
         if (acc != null) {
-            response.getWriter().print("hello " + acc.getDisplayName());
+            request.getSession().setAttribute("account", acc);
+            if (acc.getRole().getRoleID() == 1) {
+                response.sendRedirect("admin/home");
+            } else if (acc.getRole().getRoleID() == 2) {
+                response.sendRedirect("teacher/home");
+            } else {
+                response.sendRedirect("student/home");
+            }
         } else {
-            response.getWriter().print("login failed");
+            response.sendRedirect("login");
         }
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";
