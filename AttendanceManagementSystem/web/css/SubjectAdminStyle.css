@@ -61,14 +61,14 @@ header {
     display: flex;
     justify-content: space-evenly;
     font-family: calibri;
-
+    padding-bottom: 20px;
 }
 
 #add-subject {
     background: #fff;
-    width: 30%;
+    width: 25%;
     border-radius: 7px;
-    max-height: 290.2px;
+    max-height: 271.2px;
 }
 
 .subject-title {
@@ -83,7 +83,7 @@ header {
 }
 
 #add-subject-form {
-    font-size: 20px;
+    font-size: 17px;
     padding: 15px 20px;
     line-height: 1.5;
 }
@@ -103,17 +103,69 @@ header {
 }
 
 #save-btn input {
-    font-size: 15px;
-    padding: 10px 25px;
+    font-size: 17px;
+    padding: 7px 25px;
     border-radius: 7px;
     border: 0;
     background: rgb(244, 116, 36);
     margin-top: 15px;
     margin-bottom: 10px;
+    font-family: calibri;
+    color: #fff;
 }
 
 #subject-list {
-    width: 60%;
+    width: 70%;
     border-radius: 7px;
     background: #fff;
 }
+
+#subject-list form{
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#subject-list form input:first-child{
+    width: 300px;
+    border: #d0d1d3 1px solid;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+::placeholder {
+    font-size: 17px;
+    font-family: calibri;
+    padding-left: 7px;
+}
+
+#subject-list form input:last-child{
+    font-size: 17px;
+    font-family: calibri;
+    padding: 7px 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 0;
+    background: #f47424;
+    color: #fff;
+}
+
+#subject-table{
+    margin: auto;
+    font-size: 17px; 
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#subject-table td{
+    padding: 5px 10px;
+}
+
+#subject-table td a{
+    color: blue;
+}
+
+#subject-table th{
+    padding: 5px 10px;
+}
+

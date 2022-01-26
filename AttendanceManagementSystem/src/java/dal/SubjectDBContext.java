@@ -30,16 +30,28 @@ public class SubjectDBContext extends DBContext {
         }
     }
 
+    public void deleteSubject(int id) {
+        try {
+            String sql = "DELETE FROM [Attendance_Management].[dbo].[Subject] WHERE [SubjectID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<Subject> getSubject(String code) {
         ArrayList<Subject> list = new ArrayList<>();
         try {
-            String sql = "SELECT [SubjectCode], [TotalSlot], [SemesterID], [SubjectName] FROM [Attendance_Management].[dbo].[Subject]";
+            String sql = "SELECT [SubjectID], [SubjectCode], [TotalSlot], [SemesterID], [SubjectName] FROM [Attendance_Management].[dbo].[Subject]";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 if (rs.getString("SubjectCode").toLowerCase().contains(code.trim().toLowerCase())) {
                     Subject s = new Subject();
                     Semester semester = new Semester();
+                    s.setSubjectID(rs.getInt("SubjectID"));
                     s.setSubjectCode(rs.getString("SubjectCode"));
                     s.setTotalSlot(rs.getInt("TotalSlot"));
                     semester.setSemesterID(rs.getInt("SemesterID"));

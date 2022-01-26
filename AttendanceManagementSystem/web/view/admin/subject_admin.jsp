@@ -82,32 +82,35 @@
                     <input name="code" placeholder="Search by subject code" type="text">
                     <input type="submit" value="Search">
                 </form>
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>Subject Code</th>
-                        <th>Subject Name</th>
-                        <th>Total Slot</th>
-                        <th>Semester</th>
-                        <th>Edit</th>
-                        <th>Remove</th>
-                    </tr>
-                    <%
-                        for (int i = 0; i < list.size(); i++) {
-                            Subject subject = list.get(i);
-                    %>
-                    <tr>
-                        <td><%=i + 1%></td>
-                        <td><%=subject.getSubjectCode()%></td>
-                        <td><%=subject.getSubjectName()%></td>
-                        <td><%=subject.getTotalSlot()%></td>
-                        <td><%=subject.getSemester().getSemesterName()%></td>
-                        <td>#</td>
-                        <td>#</td>
-                    </tr>
-                    <%
-                        }
-                    %>
+                <table id="subject-table" border="1px" border-collapse="collapse">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Subject Code</th>
+                            <th>Subject Name</th>
+                            <th>Total Slot</th>
+                            <th>Semester</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (int i = 0; i < list.size(); i++) {
+                                Subject subject = list.get(i);
+                        %>
+                        <tr>
+                            <td><%=i + 1%></td>
+                            <td><%=subject.getSubjectCode()%></td>
+                            <td><%=subject.getSubjectName()%></td>
+                            <td><%=subject.getTotalSlot()%></td>
+                            <td><%=subject.getSemester().getSemesterName()%></td>
+                            <td><a href="../admin/subject/edit?id=<%=subject.getSubjectID()%>">Edit</a></td>
+                            <td><a href="../admin/subject/delete?id=<%=subject.getSubjectID()%>">Delete</a></td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
                 </table>
             </div>
         </div>

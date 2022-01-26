@@ -11,10 +11,19 @@ package model;
  */
 public class Subject {
 
+    private int subjectID;
     private String subjectCode;
     private int totalSlot;
     private Semester semester;
     private String subjectName;
+
+    public int getSubjectID() {
+        return subjectID;
+    }
+
+    public void setSubjectID(int subjectID) {
+        this.subjectID = subjectID;
+    }
 
     public String getSubjectCode() {
         return subjectCode;

@@ -24,7 +24,6 @@ public class SubjectAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String code = request.getParameter("code");
         SubjectDBContext db = new SubjectDBContext();
         ArrayList<Subject> list = db.getSubject("");
         request.setAttribute("list", list);
