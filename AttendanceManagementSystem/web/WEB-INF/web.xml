@@ -20,6 +20,14 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.authentication.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubjectAdmin</servlet-name>
+        <servlet-class>controller.admin.SubjectAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSubject</servlet-name>
+        <servlet-class>controller.subject.AddSubject</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectAdmin</servlet-name>
+        <url-pattern>/admin/subject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSubject</servlet-name>
+        <url-pattern>/admin/subject/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

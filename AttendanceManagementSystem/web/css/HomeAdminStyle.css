@@ -35,7 +35,8 @@ header {
     display: flex;
     flex-direction: column;
     bottom: 0;
-    top: 0;
+    top: 0;border-right: 1px solid #bdbdbd;
+    z-index: 1;
 }
 
 #nav-bar a {
