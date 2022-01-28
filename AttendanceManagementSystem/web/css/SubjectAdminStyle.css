@@ -112,6 +112,7 @@ header {
     margin-bottom: 10px;
     font-family: calibri;
     color: #fff;
+    cursor: pointer;
 }
 
 #subject-list {
@@ -148,6 +149,7 @@ header {
     border: 0;
     background: #f47424;
     color: #fff;
+    cursor: pointer;
 }
 
 #subject-table{
@@ -162,7 +164,13 @@ header {
 }
 
 #subject-table td a{
-    color: blue;
+    color: #007bff;
+    text-decoration: none;
+}
+
+#subject-table td a:hover{
+    color: #0056b3;
+    text-decoration: underline;
 }
 
 #subject-table th{

@@ -1,0 +1,112 @@
+body {
+    font-family: dongle;
+    background: #dcdcdc;
+    margin: 0;
+}
+
+header {
+    background: rgb(244, 116, 36);
+    display: flex;
+    font-size: 33px;
+    justify-content: space-between;
+    padding: 0 25px;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#header-title {
+    text-decoration: none;
+    color: #fff;
+}
+
+#logout a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#nav-bar {
+    position: fixed;
+    margin-top: 48px;
+    background: #d0d1d3;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    top: 0;
+    border-right: 1px solid #bdbdbd;
+    z-index: 1;
+}
+
+#nav-bar a {
+    text-decoration: none;
+    font-size: 30px;
+    line-height: 1.6;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #000;
+}
+
+#nav-bar a:hover {
+    color: #fff;
+    background: #000;
+}
+
+#subject {
+    margin-left: 222.15px;
+    margin-top: 100px;
+    font-family: calibri;
+    height: 100vh;
+}
+
+#subject form{
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+#subject table{
+    background: #fff;
+    border-radius: 7px;
+}
+
+#subject table th{
+    font-size: 23px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e2e2e2;
+    padding: 20px 400px;
+    font-weight: bold;
+}
+
+#subject table td{
+    font-size: 20px;
+    line-height: 2;
+    text-align: center;
+}
+
+.input-box{
+    width: 70%;
+    height: 20px;
+}
+
+select{
+    width: 71%;
+    height: 26px;
+}
+
+#submit-btn{
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 7px;
+    border: 0;
+    background: rgb(244, 116, 36);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-family: calibri;
+    color: #fff;
+    cursor: pointer;
+}
+

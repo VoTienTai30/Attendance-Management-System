@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@page import="model.Semester"%>
 <%@page import="model.Subject"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Account"%>

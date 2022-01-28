@@ -53,7 +53,7 @@ public class AddSubject extends HttpServlet {
         
         String subjectCode = request.getParameter("subjectCode");
         int totalSlot = Integer.parseInt(request.getParameter("totalSlot"));
-        int semesterID = Integer.parseInt(request.getParameter("totalSlot"));
+        int semesterID = Integer.parseInt(request.getParameter("semester"));
         String semesterName = "Semester " + semesterID;
         semester.setSemesterID(semesterID);
         semester.setSemesterName(semesterName);

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Semester;
 import model.Subject;
 
 /**
@@ -34,9 +35,11 @@ public class SubjectAdmin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String code = request.getParameter("code");
+        
         SubjectDBContext db = new SubjectDBContext();
         ArrayList<Subject> list = db.getSubject(code);
         request.setAttribute("list", list);
+        
         request.getRequestDispatcher("../view/admin/subject_admin.jsp").forward(request, response);
     }
 
