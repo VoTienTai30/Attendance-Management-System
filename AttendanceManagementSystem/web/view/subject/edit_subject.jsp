@@ -22,14 +22,14 @@
     </head>
     <body>
         <header>
-            <a href="../admin/home" id="header-title">Student Attendance Management System</a>
+            <a href="../../admin/home" id="header-title">Student Attendance Management System</a>
             <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
             <a href="../../admin/home">Home</a>
             <a href="../../admin/subject">Subject</a>
-            <a href="#">Class</a>
+            <a href="../../admin/class">Class</a>
             <a href="#">Teacher</a>
             <a href="#">Student</a>
             <a href="#">Schedule</a>
@@ -42,7 +42,7 @@
                 <input type="hidden" name="subjectID" value="<%=subjectID%>">
                 <table>
                     <tr>
-                        <th colspan="2">EDIT SUBJECT</th>
+                        <th colspan="2">Edit Subject</th>
                     </tr>
                     <tr>
                         <td><span>Subject Code:</span></td>

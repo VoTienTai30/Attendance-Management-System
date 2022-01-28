@@ -29,7 +29,7 @@
         <div id="nav-bar">
             <a href="../admin/home">Home</a>
             <a href="#">Subject</a>
-            <a href="#">Class</a>
+            <a href="../admin/class">Class</a>
             <a href="#">Teacher</a>
             <a href="#">Student</a>
             <a href="#">Schedule</a>
@@ -75,7 +75,6 @@
                         </table>
                     </form>
                 </div>
-                <div></div>
             </div>
             <div id="subject-list">
                 <div class="subject-title">Subject List</div>

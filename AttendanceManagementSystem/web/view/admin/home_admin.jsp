@@ -23,7 +23,7 @@
         <div id="nav-bar">
             <a href="#">Home</a>
             <a href="../admin/subject">Subject</a>
-            <a href="#">Class</a>
+            <a href="../admin/class">Class</a>
             <a href="#">Teacher</a>
             <a href="#">Student</a>
             <a href="#">Schedule</a>
