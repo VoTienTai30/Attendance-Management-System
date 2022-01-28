@@ -9,14 +9,6 @@
         <servlet-class>controller.admin.HomeAdmin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomeStudent</servlet-name>
-        <servlet-class>controller.student.HomeStudent</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>HomeTeacher</servlet-name>
-        <servlet-class>controller.teacher.HomeTeacher</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.authentication.Logout</servlet-class>
     </servlet>
@@ -52,6 +44,22 @@
         <servlet-name>EditClass</servlet-name>
         <servlet-class>controller.classes.EditClass</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>teacher_admin</servlet-name>
+        <servlet-class>teacher_admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeacherAdmin</servlet-name>
+        <servlet-class>controller.admin.TeacherAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTeacher</servlet-name>
+        <servlet-class>controller.teacher.AddTeacher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTeacher</servlet-name>
+        <servlet-class>controller.teacher.DeleteTeacher</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -59,14 +67,6 @@
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/admin/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HomeStudent</servlet-name>
-        <url-pattern>/student/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HomeTeacher</servlet-name>
-        <url-pattern>/teacher/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -103,6 +103,18 @@
     <servlet-mapping>
         <servlet-name>EditClass</servlet-name>
         <url-pattern>/admin/class/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeacherAdmin</servlet-name>
+        <url-pattern>/admin/teacher</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTeacher</servlet-name>
+        <url-pattern>/admin/teacher/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTeacher</servlet-name>
+        <url-pattern>/admin/teacher/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

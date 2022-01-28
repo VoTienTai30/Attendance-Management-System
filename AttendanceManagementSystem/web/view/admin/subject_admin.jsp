@@ -30,7 +30,7 @@
             <a href="../admin/home">Home</a>
             <a href="#">Subject</a>
             <a href="../admin/class">Class</a>
-            <a href="#">Teacher</a>
+            <a href="../admin/teacher">Teacher</a>
             <a href="#">Student</a>
             <a href="#">Schedule</a>
             <a href="#">Attendance Report</a>

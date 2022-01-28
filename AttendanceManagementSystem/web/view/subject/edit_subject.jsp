@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <td><span>Total Slot:</span></td>
-                        <td><input name="totalSlot" type="text" class="input-box"></td>
+                        <td><input name="totalSlot" type="number" class="input-box"></td>
                     </tr>
                     <tr>
                         <td><span>Semester:</span></td>

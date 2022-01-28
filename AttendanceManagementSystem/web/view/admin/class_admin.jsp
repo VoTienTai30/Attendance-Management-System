@@ -28,7 +28,7 @@
             <a href="../admin/home">Home</a>
             <a href="../admin/subject">Subject</a>
             <a href="#">Class</a>
-            <a href="#">Teacher</a>
+            <a href="../admin/teacher">Teacher</a>
             <a href="#">Student</a>
             <a href="#">Schedule</a>
             <a href="#">Attendance Report</a>
