@@ -1,0 +1,239 @@
+body {
+    font-family: dongle;
+    background: #dcdcdc;
+    margin: 0;
+}
+
+header {
+    background: rgb(244, 116, 36);
+    display: flex;
+    font-size: 33px;
+    justify-content: space-between;
+    padding: 0 25px;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#header-title {
+    text-decoration: none;
+    color: #fff;
+}
+
+#logout a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#nav-bar {
+    position: fixed;
+    margin-top: 48px;
+    background: #d0d1d3;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    top: 0;
+    border-right: 1px solid #bdbdbd;
+    z-index: 1;
+}
+
+#nav-bar a {
+    text-decoration: none;
+    font-size: 30px;
+    line-height: 1.6;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #000;
+}
+
+#nav-bar a:hover {
+    color: #fff;
+    background: #000;
+}
+
+#student {
+    margin-left: 222.15px;
+    margin-top: 88px;
+    display: flex;
+    justify-content: center;
+    font-family: calibri;
+    padding-bottom: 40px;
+}
+
+.student-title {
+    font-size: 23px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e2e2e2;
+    padding: 15px 20px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#student-list {
+    width: 90%;
+    border-radius: 7px;
+    background: #fff;
+}
+
+#student-add-search{
+    margin: 0 35px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#student-add-search button{
+    font-size: 17px;
+    padding: 7px 20px;
+    border-radius: 7px;
+    border: 0;
+    background: rgb(244, 116, 36);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: calibri;
+    color: #fff;
+    cursor: pointer;
+}
+
+#student-list form{
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#student-list form input:first-child{
+    width: 300px;
+    border: #d0d1d3 1px solid;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+::placeholder {
+    font-size: 17px;
+    font-family: calibri;
+    padding-left: 7px;
+}
+
+#student-list form input:last-child{
+    font-size: 17px;
+    font-family: calibri;
+    padding: 7px 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 0;
+    background: #f47424;
+    color: #fff;
+    cursor: pointer;
+}
+
+#student-table{
+    margin: auto;
+    font-size: 15px; 
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#student-table td{
+    padding: 5px 10px;
+}
+
+#student-table td a{
+    color: #007bff;
+    text-decoration: none;
+}
+
+#student-table td a:hover{
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+#student-table th{
+    padding: 5px 10px;
+}
+
+#add-student-container{
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    font-family: calibri;
+}
+
+@keyframes zoom-in {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+#add-student {
+    background: #fff;
+    border-radius: 7px;
+    margin: auto;
+    animation: zoom-in ease 0.3s;
+}
+
+#add-student-form {
+    font-size: 17px;
+    padding: 15px 20px;
+    line-height: 1.5;
+}
+
+#add-student-form form{
+    display: flex;
+    justify-content: center;
+}
+
+#add-student-form tr{
+    padding: 5px 0;
+}
+#add-student-form td{
+    padding: 0 10px;
+}
+
+#add-student-form select {
+    width: 100%;
+    height: 22px;
+}
+
+#save-btn {
+    text-align: center;
+}
+
+#save-btn input {
+    font-size: 17px;
+    padding: 7px 25px;
+    border-radius: 7px;
+    border: 0;
+    background: rgb(244, 116, 36);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-family: calibri;
+    color: #fff;
+    cursor: pointer;
+}
+
+#cancel-btn {
+    font-size: 17px;
+    padding: 7px 18px;
+    border-radius: 7px;
+    border: 0;
+    background: #6c757d;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-family: calibri;
+    color: #fff;
+    cursor: pointer;
+}

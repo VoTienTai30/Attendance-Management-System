@@ -64,6 +64,22 @@
         <servlet-name>EditTeacher</servlet-name>
         <servlet-class>controller.teacher.EditTeacher</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentAdmin</servlet-name>
+        <servlet-class>controller.admin.StudentAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddStudent</servlet-name>
+        <servlet-class>controller.student.AddStudent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStudent</servlet-name>
+        <servlet-class>controller.student.DeleteStudent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditStudent</servlet-name>
+        <servlet-class>controller.student.EditStudent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -123,6 +139,22 @@
     <servlet-mapping>
         <servlet-name>EditTeacher</servlet-name>
         <url-pattern>/admin/teacher/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentAdmin</servlet-name>
+        <url-pattern>/admin/student</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddStudent</servlet-name>
+        <url-pattern>/admin/student/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStudent</servlet-name>
+        <url-pattern>/admin/student/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditStudent</servlet-name>
+        <url-pattern>/admin/student/edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
