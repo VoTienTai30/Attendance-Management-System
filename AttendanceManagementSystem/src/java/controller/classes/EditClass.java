@@ -24,7 +24,7 @@ public class EditClass extends HttpServlet {
             throws ServletException, IOException {
         int classID = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("classID", classID);
-        request.getRequestDispatcher("/view/class/edit_class.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/admin/edit_class.jsp").forward(request, response);
     }
 
     @Override

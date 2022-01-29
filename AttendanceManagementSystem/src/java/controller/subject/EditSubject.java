@@ -23,7 +23,7 @@ public class EditSubject extends HttpServlet {
             throws ServletException, IOException {
         int subjectID = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("subjectID", subjectID);
-        request.getRequestDispatcher("/view/subject/edit_subject.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/admin/edit_subject.jsp").forward(request, response);
     }
 
     @Override

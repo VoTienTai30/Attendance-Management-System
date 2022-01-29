@@ -60,6 +60,10 @@
         <servlet-name>DeleteTeacher</servlet-name>
         <servlet-class>controller.teacher.DeleteTeacher</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditTeacher</servlet-name>
+        <servlet-class>controller.teacher.EditTeacher</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>DeleteTeacher</servlet-name>
         <url-pattern>/admin/teacher/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTeacher</servlet-name>
+        <url-pattern>/admin/teacher/edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
