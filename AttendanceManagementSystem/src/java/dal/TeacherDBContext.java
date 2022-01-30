@@ -99,4 +99,31 @@ public class TeacherDBContext extends DBContext {
         }
         return list;
     }
+
+    public Teacher getTeacherByID(int id) {
+        Teacher t = new Teacher();
+        try {
+            String sql = "SELECT [TeacherID], [TeacherName], [TeacherGender], [TeacherAddress], [TeacherEmail], "
+                    + "[TeacherPhone], [TeacherDOB] FROM [Attendance_Management].[dbo].[Teacher] WHERE [TeacherID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                t.setTeacherID(rs.getInt("TeacherID"));
+                t.setTeacherName(rs.getString("TeacherName"));
+                if (rs.getInt("TeacherGender") == 1) {
+                    t.setTeacherGender(true);
+                } else {
+                    t.setTeacherGender(false);
+                }
+                t.setTeacherAddress(rs.getString("TeacherAddress"));
+                t.setTeacherEmail(rs.getString("TeacherEmail"));
+                t.setTeacherPhone(rs.getString("TeacherPhone"));
+                t.setTeacherDOB(rs.getDate("TeacherDOB"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return t;
+    }
 }

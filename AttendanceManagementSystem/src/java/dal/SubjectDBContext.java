@@ -81,4 +81,28 @@ public class SubjectDBContext extends DBContext {
         }
         return list;
     }
+
+    public Subject getSubjectByID(int id) {
+        Subject s = new Subject();
+        try {
+            String sql = "SELECT [SubjectID], [SubjectCode], [TotalSlot], [SemesterID], "
+                    + "[SubjectName] FROM [Attendance_Management].[dbo].[Subject] WHERE [SubjectID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Semester semester = new Semester();
+                s.setSubjectID(rs.getInt("SubjectID"));
+                s.setSubjectCode(rs.getString("SubjectCode"));
+                s.setTotalSlot(rs.getInt("TotalSlot"));
+                semester.setSemesterID(rs.getInt("SemesterID"));
+                semester.setSemesterName("Semester " + rs.getInt("SemesterID"));
+                s.setSemester(semester);
+                s.setSubjectName(rs.getString("SubjectName"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return s;
+    }
 }

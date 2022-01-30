@@ -31,7 +31,7 @@
             <a href="../admin/class">Class</a>
             <a href="#">Teacher</a>
             <a href="../admin/student">Student</a>
-            <a href="#">Schedule</a>
+            <a href="../admin/schedule">Schedule</a>
             <a href="#">Attendance Report</a>
             <a href="#">Total Account</a>
         </div>

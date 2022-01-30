@@ -71,4 +71,21 @@ public class ClassDBContext extends DBContext {
         }
         return list;
     }
+
+    public model.Class getClasseByID(int id) {
+        model.Class c = new model.Class();
+        try {
+            String sql = "SELECT [ClassID], [ClassName] FROM [Attendance_Management].[dbo].[Class] WHERE [ClassID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                c.setClassID(rs.getInt("ClassID"));
+                c.setClassName(rs.getString("ClassName"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
+    }
 }

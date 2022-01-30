@@ -80,6 +80,22 @@
         <servlet-name>EditStudent</servlet-name>
         <servlet-class>controller.student.EditStudent</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScheduleAdmin</servlet-name>
+        <servlet-class>controller.admin.ScheduleAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSchedule</servlet-name>
+        <servlet-class>controller.schedule.AddSchedule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSchedule</servlet-name>
+        <servlet-class>controller.schedule.DeleteSchedule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSchedule</servlet-name>
+        <servlet-class>controller.schedule.EditSchedule</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -155,6 +171,22 @@
     <servlet-mapping>
         <servlet-name>EditStudent</servlet-name>
         <url-pattern>/admin/student/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleAdmin</servlet-name>
+        <url-pattern>/admin/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSchedule</servlet-name>
+        <url-pattern>/admin/schedule/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSchedule</servlet-name>
+        <url-pattern>/admin/schedule/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSchedule</servlet-name>
+        <url-pattern>/admin/schedule/edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
