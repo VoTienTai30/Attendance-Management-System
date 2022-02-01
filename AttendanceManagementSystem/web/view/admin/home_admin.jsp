@@ -28,7 +28,7 @@
             <a href="../admin/student">Student</a>
             <a href="../admin/schedule">Schedule</a>
             <a href="#">Attendance Report</a>
-            <a href="#">Total Account</a>
+            <a href="../admin/account">Total Account</a>
         </div>
 
         <div id="background">
