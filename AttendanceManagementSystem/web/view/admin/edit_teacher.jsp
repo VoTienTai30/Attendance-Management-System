@@ -69,6 +69,14 @@
                         <td><input type="date" name="teacherDOB" class="input-box"></td>
                     </tr>
                     <tr>
+                        <td><span>Username:</span></td>
+                        <td><input type="text" name="user" class="input-box"></td>
+                    </tr>
+                    <tr>
+                        <td><span>Password:</span></td>
+                        <td><input type="text" name="pass" class="input-box"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><input type="submit" id="submit-btn" value="Save"></td>
                     </tr>
                 </table>

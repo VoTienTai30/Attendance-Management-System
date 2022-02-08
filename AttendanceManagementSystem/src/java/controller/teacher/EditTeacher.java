@@ -5,6 +5,7 @@
  */
 package controller.teacher;
 
+import dal.AccountDBContext;
 import dal.TeacherDBContext;
 import java.io.IOException;
 import java.sql.Date;
@@ -31,14 +32,28 @@ public class EditTeacher extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         TeacherDBContext db = new TeacherDBContext();
+        AccountDBContext accountDB = new AccountDBContext();
+
         int teacherID = Integer.parseInt(request.getParameter("teacherID"));
+
+        String oldUser = db.getTeacherByID(Integer.parseInt(request.getParameter("teacherID"))).getTeacherUsername().getUser();
+
         String teacherName = request.getParameter("teacherName");
         int teacherGender = Integer.parseInt(request.getParameter("teacherGender"));
         String teacherAddress = request.getParameter("teacherAddress");
         String teacherEmail = request.getParameter("teacherMail");
         String teacherPhone = request.getParameter("teacherPhone");
         Date teacherDOB = Date.valueOf(request.getParameter("teacherDOB"));
-        db.editTeacher(teacherID, teacherName, teacherGender, teacherAddress, teacherEmail, teacherPhone, teacherDOB);
+        db.editTeacher1(teacherName, teacherGender, teacherAddress, teacherEmail, teacherPhone, teacherDOB, teacherID);
+
+        String newUser = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        String displayName = request.getParameter("teacherName");
+        int roleID = 2;
+
+        accountDB.editAccount(newUser, pass, displayName, roleID, oldUser);
+        db.editTeacher2(newUser, teacherID);
+
         response.sendRedirect("../teacher");
     }
 

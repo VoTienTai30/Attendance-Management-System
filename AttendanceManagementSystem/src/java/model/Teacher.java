@@ -11,6 +11,15 @@ public class Teacher {
     private String teacherEmail;
     private String teacherPhone;
     private Date teacherDOB;
+    private Account teacherUsername;
+
+    public Account getTeacherUsername() {
+        return teacherUsername;
+    }
+
+    public void setTeacherUsername(Account teacherUsername) {
+        this.teacherUsername = teacherUsername;
+    }
 
     public int getTeacherID() {
         return teacherID;

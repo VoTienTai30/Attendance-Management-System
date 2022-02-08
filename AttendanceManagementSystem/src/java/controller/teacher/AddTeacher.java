@@ -5,6 +5,7 @@
  */
 package controller.teacher;
 
+import dal.AccountDBContext;
 import dal.TeacherDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Role;
 import model.Teacher;
 
 /**
@@ -31,7 +34,18 @@ public class AddTeacher extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         TeacherDBContext db = new TeacherDBContext();
+        AccountDBContext accountDB = new AccountDBContext();
         Teacher t = new Teacher();
+        Account a = new Account();
+        Role r = new Role();
+
+        a.setUser(request.getParameter("user"));
+        a.setPass(request.getParameter("pass"));
+        r.setRoleID(2);
+        r.setRoleName("teacher");
+        a.setDisplayName(request.getParameter("teacherName"));
+        a.setRole(r);
+        accountDB.addAccount(a);
 
         t.setTeacherName(request.getParameter("teacherName"));
         if (Integer.parseInt(request.getParameter("teacherGender")) == 1) {
@@ -43,8 +57,9 @@ public class AddTeacher extends HttpServlet {
         t.setTeacherEmail(request.getParameter("teacherMail"));
         t.setTeacherPhone(request.getParameter("teacherPhone"));
         t.setTeacherDOB(Date.valueOf(request.getParameter("teacherDOB")));
-
+        t.setTeacherUsername(a);
         db.addTeacher(t);
+
         response.sendRedirect("../teacher");
     }
 

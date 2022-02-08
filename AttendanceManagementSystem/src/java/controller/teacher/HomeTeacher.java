@@ -5,8 +5,6 @@
  */
 package controller.teacher;
 
-import dal.AccountDBContext;
-import dal.TeacherDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,18 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author midni
  */
-public class DeleteTeacher extends HttpServlet {
+public class HomeTeacher extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        TeacherDBContext db = new TeacherDBContext();
-        AccountDBContext accountDB = new AccountDBContext();
-        String user = db.getTeacherByID(id).getTeacherUsername().getUser();
-        db.deleteTeacher(id);
-        accountDB.deleteAccount(user);
-        response.sendRedirect("../teacher");
+        request.getRequestDispatcher("../view/teacher/home_teacher.jsp").forward(request, response);
     }
 
     @Override
