@@ -36,14 +36,14 @@
 
         <div id="student">
             <form action="../student/edit" method="post">
-                <input type="hidden" name="studentID" value="<%=studentID%>">
+                <input type="hidden" name="oldStudentID" value="<%=studentID%>">
                 <table>
                     <tr>
                         <th colspan="2">Edit Student</th>
                     </tr>
                     <tr>
                         <td><span>Student ID:</span></td>
-                        <td><input name="studentID" type="text" class="input-box"></td>
+                        <td><input name="newStudentID" type="text" class="input-box"></td>
                     </tr>
                     <tr>
                         <td><span>Student Name:</span></td>
@@ -87,6 +87,14 @@
                                 <option value="9">Semester 9</option>
                             </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td><span>Username:</span></td>
+                        <td><input type="text" name="user" class="input-box"></td>
+                    </tr>
+                    <tr>
+                        <td><span>Password:</span></td>
+                        <td><input type="text" name="pass" class="input-box"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" id="submit-btn" value="Save"></td>
