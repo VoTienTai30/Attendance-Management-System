@@ -27,3 +27,60 @@ header {
     color: #fff;
 }
 
+#schedule-container{
+    width: 100%;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border-bottom: 1px solid #ddd;
+}
+
+td, th {
+    font-size: 18px;
+    font-family: calibri;
+    padding: 4px 20px;
+    padding-top: 20px;
+}
+
+form{
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+form input:first-child{
+    width: 300px;
+    border: #d0d1d3 1px solid;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+form input:last-child{
+    font-size: 20px;
+    font-family: calibri;
+    padding: 7px 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 0;
+    background: #f47424;
+    color: #fff;
+    cursor: pointer;
+}
+
+td a{
+    color: #007bff;
+    text-decoration: none;
+}
+
+td a:hover{
+    color: #0056b3;
+    text-decoration: underline;
+}

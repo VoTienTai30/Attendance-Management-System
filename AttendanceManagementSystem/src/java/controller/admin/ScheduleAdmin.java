@@ -37,7 +37,7 @@ public class ScheduleAdmin extends HttpServlet {
         ClassDBContext classDB = new ClassDBContext();
         TimeSlotDBContext timeSlotDB = new TimeSlotDBContext();
 
-        ArrayList<Schedule> listSchedule = scheduleDB.getSchedule("");
+        ArrayList<Schedule> listSchedule = scheduleDB.getSchedule(null);
         ArrayList<Teacher> listTeacher = teacherDB.getTeacher("");
         ArrayList<Subject> listSubject = subjectDB.getSubject("");
         ArrayList<model.Class> listClass = classDB.getClasses("");
@@ -55,7 +55,6 @@ public class ScheduleAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Date date = Date.valueOf(request.getParameter("dateSearch"));
         ScheduleDBContext db = new ScheduleDBContext();
         TeacherDBContext teacherDB = new TeacherDBContext();
         SubjectDBContext subjectDB = new SubjectDBContext();

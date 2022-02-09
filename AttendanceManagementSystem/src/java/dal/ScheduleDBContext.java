@@ -74,7 +74,7 @@ public class ScheduleDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                if (date == "") {
+                if (date == null) {
                     Schedule schedule = new Schedule();
                     schedule.setScheduleID(rs.getInt("ScheduleID"));
                     schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));
@@ -96,6 +96,18 @@ public class ScheduleDBContext extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public ArrayList<Schedule> getScheduleByUsername(String user) {
+        ArrayList<Schedule> rawList = getSchedule(null);
+        ArrayList<Schedule> list = new ArrayList<>();
+        for (int i = 0; i < rawList.size(); i++) {
+            Schedule get = rawList.get(i);
+            if (get.getTeacherID().getTeacherUsername().getUser().compareTo(user) == 0) {
+                list.add(get);
+            }
         }
         return list;
     }
