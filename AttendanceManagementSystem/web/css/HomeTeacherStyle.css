@@ -1,0 +1,29 @@
+body {
+    font-family: dongle;
+    margin: 0;
+}
+
+header {
+    background: rgb(244, 116, 36);
+    display: flex;
+    font-size: 33px;
+    justify-content: space-between;
+    padding: 0 25px;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#header-title{
+    text-decoration: none;
+    color: #fff;
+}
+
+#logout a {
+    text-decoration: none;
+    color: #fff;
+}
+

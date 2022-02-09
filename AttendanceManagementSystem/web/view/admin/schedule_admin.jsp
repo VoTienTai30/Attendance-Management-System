@@ -110,7 +110,7 @@
             <div id="schedule-list">
                 <div class="schedule-title">Schedule List</div>
                 <form action="../admin/schedule" method="post">
-                    <input name="date" type="date">
+                    <input name="dateSearch" type="date">
                     <input type="submit" value="Search">
                 </form>
                 <table id="schedule-table" border="1px" border-collapse="collapse">

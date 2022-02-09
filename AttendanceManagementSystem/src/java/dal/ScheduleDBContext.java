@@ -63,18 +63,18 @@ public class ScheduleDBContext extends DBContext {
         }
     }
 
-    public ArrayList<Schedule> getSchedule(Date date) {
+    public ArrayList<Schedule> getSchedule(String date) {
         TeacherDBContext teacherDB = new TeacherDBContext();
         SubjectDBContext subjectDB = new SubjectDBContext();
         ClassDBContext classDB = new ClassDBContext();
         TimeSlotDBContext timeSlotDB = new TimeSlotDBContext();
         ArrayList<Schedule> list = new ArrayList<>();
         try {
-            String sql = "SELECT [ScheduleID], [TeacherID], [SubjectID], [ClassID], [TimeSlotID], [ScheduleDate] FROM [Attendance_Management].[dbo].[Schedule]";
+            String sql = "SELECT * FROM dbo.Schedule";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                if (date == null) {
+                if (date == "") {
                     Schedule schedule = new Schedule();
                     schedule.setScheduleID(rs.getInt("ScheduleID"));
                     schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));
@@ -83,7 +83,7 @@ public class ScheduleDBContext extends DBContext {
                     schedule.setTimeSlotID(timeSlotDB.getTimeSlot(rs.getInt("TimeSlotID")).get(0));
                     schedule.setScheduleDate(rs.getDate("ScheduleDate"));
                     list.add(schedule);
-                } else if (rs.getDate("ScheduleDate").compareTo(date) == 0) {
+                } else if (rs.getDate("ScheduleDate").toString().compareTo(date) == 0) {
                     Schedule schedule = new Schedule();
                     schedule.setScheduleID(rs.getInt("ScheduleID"));
                     schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));

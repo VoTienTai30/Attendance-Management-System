@@ -37,7 +37,7 @@ public class ScheduleAdmin extends HttpServlet {
         ClassDBContext classDB = new ClassDBContext();
         TimeSlotDBContext timeSlotDB = new TimeSlotDBContext();
 
-        ArrayList<Schedule> listSchedule = scheduleDB.getSchedule(null);
+        ArrayList<Schedule> listSchedule = scheduleDB.getSchedule("");
         ArrayList<Teacher> listTeacher = teacherDB.getTeacher("");
         ArrayList<Subject> listSubject = subjectDB.getSubject("");
         ArrayList<model.Class> listClass = classDB.getClasses("");
@@ -55,10 +55,25 @@ public class ScheduleAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Date date = Date.valueOf(request.getParameter("date"));
+//        Date date = Date.valueOf(request.getParameter("dateSearch"));
         ScheduleDBContext db = new ScheduleDBContext();
-        ArrayList<Schedule> list = db.getSchedule(date);
+        TeacherDBContext teacherDB = new TeacherDBContext();
+        SubjectDBContext subjectDB = new SubjectDBContext();
+        ClassDBContext classDB = new ClassDBContext();
+        TimeSlotDBContext timeSlotDB = new TimeSlotDBContext();
+
+        ArrayList<Schedule> list = db.getSchedule(request.getParameter("dateSearch"));
+        ArrayList<Teacher> listTeacher = teacherDB.getTeacher("");
+        ArrayList<Subject> listSubject = subjectDB.getSubject("");
+        ArrayList<model.Class> listClass = classDB.getClasses("");
+        ArrayList<TimeSlot> listTimeSlot = timeSlotDB.getTimeSlot(-1);
+
         request.setAttribute("list", list);
+        request.setAttribute("listTeacher", listTeacher);
+        request.setAttribute("listSubject", listSubject);
+        request.setAttribute("listClass", listClass);
+        request.setAttribute("listTimeSlot", listTimeSlot);
+
         request.getRequestDispatcher("../view/admin/schedule_admin.jsp").forward(request, response);
     }
 

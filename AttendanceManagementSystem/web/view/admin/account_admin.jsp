@@ -16,6 +16,7 @@
         <%
             Account acc = (Account) request.getSession().getAttribute("account");
             ArrayList<Account> list = (ArrayList<Account>) request.getAttribute("list");
+            int x = 1;
         %>
     </head>
     <body>
@@ -54,12 +55,13 @@
                                 if (a.getRole().getRoleID() == 1) {
                         %>
                         <tr>
-                            <td><%=i + 1%></td>
+                            <td><%=x%></td>
                             <td><%=a.getUser()%></td>
                             <td><%=a.getPass()%></td>
                             <td><%=a.getDisplayName()%></td>
                         </tr>
                         <%
+                                    x++;
                                 }
                             }
                         %>
@@ -78,17 +80,19 @@
                     </thead>
                     <tbody>
                         <%
+                            x = 1;
                             for (int i = 0; i < list.size(); i++) {
                                 Account a = list.get(i);
                                 if (a.getRole().getRoleID() == 2) {
                         %>
                         <tr>
-                            <td><%=i + 1%></td>
+                            <td><%=x%></td>
                             <td><%=a.getUser()%></td>
                             <td><%=a.getPass()%></td>
                             <td><%=a.getDisplayName()%></td>
                         </tr>
                         <%
+                                    x++;
                                 }
                             }
                         %>
@@ -107,17 +111,19 @@
                     </thead>
                     <tbody>
                         <%
+                            x = 1;
                             for (int i = 0; i < list.size(); i++) {
                                 Account a = list.get(i);
                                 if (a.getRole().getRoleID() == 3) {
                         %>
                         <tr>
-                            <td><%=i + 1%></td>
+                            <td><%=x%></td>
                             <td><%=a.getUser()%></td>
                             <td><%=a.getPass()%></td>
                             <td><%=a.getDisplayName()%></td>
                         </tr>
                         <%
+                                    x++;
                                 }
                             }
                         %>
