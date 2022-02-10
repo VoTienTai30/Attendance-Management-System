@@ -22,7 +22,7 @@ import model.Student;
  * @author midni
  */
 public class StudentDBContext extends DBContext {
-
+    
     public void addStudent(Student s) {
         try {
             String sql = "INSERT INTO dbo.Student\n"
@@ -67,7 +67,7 @@ public class StudentDBContext extends DBContext {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void deleteStudent(String id) {
         try {
             String sql = "DELETE FROM dbo.Student WHERE StudentID = ?";
@@ -78,7 +78,7 @@ public class StudentDBContext extends DBContext {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void editStudent1(String newStudentID, String StudentName, int StudentGender, String StudentAddress,
             String StudentEmail, String StudentPhone, Date StudentDOB, int SemesterID, String oldStudentID) {
         try {
@@ -100,7 +100,7 @@ public class StudentDBContext extends DBContext {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void editStudent2(String newUser, String StudentID) {
         try {
             String sql = "UPDATE dbo.Student SET username = ? WHERE StudentID = ?";
@@ -112,8 +112,9 @@ public class StudentDBContext extends DBContext {
             Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public ArrayList<Student> getStudent(String id) {
+        ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
         ArrayList<Student> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM dbo.Student";
@@ -134,6 +135,7 @@ public class StudentDBContext extends DBContext {
                     student.setStudentEmail(rs.getString("StudentEmail"));
                     student.setStudentPhone(rs.getString("StudentPhone"));
                     student.setStudentDOB(rs.getDate("StudentDOB"));
+                    student.setClassID(classMemberDB.getClassByStudentID(rs.getString("StudentID")));
                     semester.setSemesterID(rs.getInt("SemesterID"));
                     semester.setSemesterName("Semester " + rs.getInt("SemesterID"));
                     student.setSemester(semester);
@@ -145,8 +147,9 @@ public class StudentDBContext extends DBContext {
         }
         return list;
     }
-
+    
     public Student getStudentByID(String id) {
+        ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
         Student s = new Student();
         try {
             String sql = "SELECT * FROM dbo.Student WHERE StudentID = ?";
@@ -168,6 +171,7 @@ public class StudentDBContext extends DBContext {
                 s.setStudentEmail(rs.getString("StudentEmail"));
                 s.setStudentPhone(rs.getString("StudentPhone"));
                 s.setStudentDOB(rs.getDate("StudentDOB"));
+                s.setClassID(classMemberDB.getClassByStudentID(rs.getString("StudentID")));
                 semester.setSemesterID(rs.getInt("SemesterID"));
                 semester.setSemesterName("Semester " + rs.getInt("SemesterID"));
                 s.setSemester(semester);

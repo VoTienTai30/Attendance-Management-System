@@ -16,7 +16,8 @@
         <link href="../css/StudentAdminStyle.css" rel="stylesheet" type="text/css"/>
         <%
             Account acc = (Account) request.getSession().getAttribute("account");
-            ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
+            ArrayList<Student> listStudent = (ArrayList<Student>) request.getAttribute("listStudent");
+            ArrayList<model.Class> listClass = (ArrayList<model.Class>) request.getAttribute("listClass");
         %>
     </head>
     <body>
@@ -57,14 +58,15 @@
                             <th>Student Email</th>
                             <th>Student Phone</th>
                             <th>Date of Birth</th>
+                            <th>Class</th>
                             <th>Semester</th>
                             <th colspan="2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            for (int i = 0; i < list.size(); i++) {
-                                Student student = list.get(i);
+                            for (int i = 0; i < listStudent.size(); i++) {
+                                Student student = listStudent.get(i);
                         %>
                         <tr>
                             <td><%=i + 1%></td>
@@ -75,6 +77,7 @@
                             <td><%=student.getStudentEmail()%></td>
                             <td><%=student.getStudentPhone()%></td>
                             <td><%=student.getStudentDOB()%></td>
+                            <td><%=student.getClassID().getClassName()%></td>
                             <td><%=student.getSemester().getSemesterName()%></td>
                             <td><a href="../admin/student/edit?id=<%=student.getStudentID()%>">Edit</a></td>
                             <td><a href="../admin/student/delete?id=<%=student.getStudentID()%>">Delete</a></td>
@@ -123,6 +126,21 @@
                             <tr>
                                 <td>Date of Birth:</td>
                                 <td><input type="date" name="studentDOB"></td>
+                            </tr>
+                            <tr>
+                                <td>Class:</td>
+                                <td>
+                                    <select name="class">
+                                        <%
+                                            for (int i = 0; i < listClass.size(); i++) {
+                                                model.Class c = listClass.get(i);
+                                        %>
+                                        <option value="<%=c.getClassID()%>"><%=c.getClassName()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Semester:</td>

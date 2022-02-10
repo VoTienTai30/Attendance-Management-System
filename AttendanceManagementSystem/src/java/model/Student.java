@@ -16,8 +16,17 @@ public class Student {
     private String studentEmail;
     private String studentPhone;
     private Date studentDOB;
+    private Class classID;
     private Semester semester;
     private Account studentUsername;
+
+    public Class getClassID() {
+        return classID;
+    }
+
+    public void setClassID(Class classID) {
+        this.classID = classID;
+    }
 
     public Account getStudentUsername() {
         return studentUsername;

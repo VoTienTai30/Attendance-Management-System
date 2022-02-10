@@ -6,6 +6,7 @@
 package controller.student;
 
 import dal.AccountDBContext;
+import dal.ClassMemberDBContext;
 import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,7 +27,10 @@ public class DeleteStudent extends HttpServlet {
         String id = request.getParameter("id");
         StudentDBContext db = new StudentDBContext();
         AccountDBContext accountDB = new AccountDBContext();
+        ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
+
         String user = db.getStudentByID(id).getStudentUsername().getUser();
+        classMemberDB.deleteClassMember(id);
         db.deleteStudent(id);
         accountDB.deleteAccount(user);
         response.sendRedirect("../student");

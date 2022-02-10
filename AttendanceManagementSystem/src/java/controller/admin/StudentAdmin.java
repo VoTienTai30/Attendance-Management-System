@@ -5,6 +5,8 @@
  */
 package controller.admin;
 
+import dal.ClassDBContext;
+import dal.ClassMemberDBContext;
 import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,9 +26,14 @@ public class StudentAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        StudentDBContext db = new StudentDBContext();
-        ArrayList<Student> list = db.getStudent("");
-        request.setAttribute("list", list);
+        StudentDBContext studentDB = new StudentDBContext();
+        ClassDBContext classDB = new ClassDBContext();
+
+        ArrayList<Student> listStudent = studentDB.getStudent("");
+        request.setAttribute("listStudent", listStudent);
+        ArrayList<model.Class> listClass = classDB.getClasses("");
+        request.setAttribute("listClass", listClass);
+
         request.getRequestDispatcher("../view/admin/student_admin.jsp").forward(request, response);
     }
 
@@ -36,8 +43,12 @@ public class StudentAdmin extends HttpServlet {
         String code = request.getParameter("id");
 
         StudentDBContext db = new StudentDBContext();
-        ArrayList<Student> list = db.getStudent(code);
-        request.setAttribute("list", list);
+        ClassDBContext classDB = new ClassDBContext();
+
+        ArrayList<Student> listStudent = db.getStudent(code);
+        request.setAttribute("listStudent", listStudent);
+        ArrayList<model.Class> listClass = classDB.getClasses("");
+        request.setAttribute("listClass", listClass);
 
         request.getRequestDispatcher("../view/admin/student_admin.jsp").forward(request, response);
     }

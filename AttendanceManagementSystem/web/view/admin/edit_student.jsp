@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +16,7 @@
         <%
             String studentID = request.getAttribute("studentID").toString();
             Account acc = (Account) request.getSession().getAttribute("account");
+            ArrayList<model.Class> listClass = (ArrayList<model.Class>) request.getAttribute("listClass");
         %>
     </head>
     <body>
@@ -71,6 +73,21 @@
                     <tr>
                         <td><span>Date of Birth:</span></td>
                         <td><input type="date" name="studentDOB" class="input-box"></td>
+                    </tr>
+                    <tr>
+                        <td>Class:</td>
+                        <td>
+                            <select name="class">
+                                <%
+                                    for (int i = 0; i < listClass.size(); i++) {
+                                        model.Class c = listClass.get(i);
+                                %>
+                                <option value="<%=c.getClassID()%>"><%=c.getClassName()%></option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>Semester:</td>

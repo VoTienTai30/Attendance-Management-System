@@ -6,6 +6,8 @@
 package controller.student;
 
 import dal.AccountDBContext;
+import dal.ClassDBContext;
+import dal.ClassMemberDBContext;
 import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.ClassMember;
 import model.Role;
 import model.Semester;
 import model.Student;
@@ -24,22 +27,25 @@ import model.Student;
  * @author midni
  */
 public class AddStudent extends HttpServlet {
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         StudentDBContext db = new StudentDBContext();
+        ClassDBContext classDB = new ClassDBContext();
         AccountDBContext accountDB = new AccountDBContext();
+        ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
         Student s = new Student();
         Account a = new Account();
         Role r = new Role();
         Semester semester = new Semester();
-
+        ClassMember classMember = new ClassMember();
+        
         a.setUser(request.getParameter("user"));
         a.setPass(request.getParameter("pass"));
         r.setRoleID(3);
@@ -47,7 +53,7 @@ public class AddStudent extends HttpServlet {
         a.setDisplayName(request.getParameter("studentName"));
         a.setRole(r);
         accountDB.addAccount(a);
-
+        
         s.setStudentID(request.getParameter("studentID"));
         s.setStudentName(request.getParameter("studentName"));
         if (Integer.parseInt(request.getParameter("studentGender")) == 1) {
@@ -63,11 +69,14 @@ public class AddStudent extends HttpServlet {
         semester.setSemesterName("Semester" + request.getParameter("semester"));
         s.setSemester(semester);
         s.setStudentUsername(a);
-
+        
         db.addStudent(s);
+        classMember.setClassID(classDB.getClasseByID(Integer.parseInt(request.getParameter("class"))));
+        classMember.setStudentID(s);
+        classMemberDB.addClassMember(classMember);
         response.sendRedirect("../student");
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";
