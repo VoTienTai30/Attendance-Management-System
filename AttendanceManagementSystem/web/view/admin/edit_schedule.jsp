@@ -4,6 +4,8 @@
     Author     : midni
 --%>
 
+<%@page import="dal.ScheduleDBContext"%>
+<%@page import="model.Schedule"%>
 <%@page import="model.TimeSlot"%>
 <%@page import="model.Subject"%>
 <%@page import="model.Teacher"%>
@@ -17,12 +19,14 @@
         <title>Edit Schedule</title>
         <link href="../../css/EditScheduleAdminStyle.css" rel="stylesheet" type="text/css"/>
         <%
-            String scheduleID = request.getAttribute("scheduleID").toString();
+            int scheduleID = Integer.parseInt(request.getAttribute("scheduleID").toString());
             Account acc = (Account) request.getSession().getAttribute("account");
             ArrayList<Teacher> listTeacher = (ArrayList<Teacher>) request.getAttribute("listTeacher");
             ArrayList<Subject> listSubject = (ArrayList<Subject>) request.getAttribute("listSubject");
             ArrayList<model.Class> listClass = (ArrayList<model.Class>) request.getAttribute("listClass");
             ArrayList<TimeSlot> listTimeSlot = (ArrayList<TimeSlot>) request.getAttribute("listTimeSlot");
+            ScheduleDBContext scheduleDB = new ScheduleDBContext();
+            Schedule schedule = scheduleDB.getScheduleByID(scheduleID);
         %>
     </head>
     <body>
@@ -56,7 +60,7 @@
                                 <% for (int i = 0; i < listTeacher.size(); i++) {
                                         Teacher teacher = listTeacher.get(i);
                                 %>
-                                <option value="<%=teacher.getTeacherID()%>"><%=teacher.getTeacherName()%></option>
+                                <option <% if (schedule.getTeacherID().getTeacherID() == teacher.getTeacherID()) {%>selected="selected"<%}%> value="<%=teacher.getTeacherID()%>"><%=teacher.getTeacherName()%></option>
                                 <%}%>
                             </select>
                         </td>
@@ -68,7 +72,7 @@
                                 <% for (int i = 0; i < listSubject.size(); i++) {
                                         Subject subject = listSubject.get(i);
                                 %>
-                                <option value="<%=subject.getSubjectID()%>"><%=subject.getSubjectName()%></option>
+                                <option <% if (schedule.getSubjectID().getSubjectID() == subject.getSubjectID()) {%>selected="selected"<%}%> value="<%=subject.getSubjectID()%>"><%=subject.getSubjectName()%></option>
                                 <%}%>
                             </select>
                         </td>
@@ -80,7 +84,7 @@
                                 <% for (int i = 0; i < listClass.size(); i++) {
                                         model.Class classes = listClass.get(i);
                                 %>
-                                <option value="<%=classes.getClassID()%>"><%=classes.getClassName()%></option>
+                                <option <% if (schedule.getClassID().getClassID() == classes.getClassID()) {%>selected="selected"<%}%> value="<%=classes.getClassID()%>"><%=classes.getClassName()%></option>
                                 <%}%>
                             </select>
                         </td>
@@ -92,14 +96,14 @@
                                 <% for (int i = 0; i < listTimeSlot.size(); i++) {
                                         TimeSlot timeSlot = listTimeSlot.get(i);
                                 %>
-                                <option value="<%=timeSlot.getTimeSlotID()%>"><%=timeSlot.getTimeSlotStart()%> - <%=timeSlot.getTimeSlotEnd()%></option>
+                                <option <% if (schedule.getTimeSlotID().getTimeSlotID() == timeSlot.getTimeSlotID()) {%>selected="selected"<%}%> value="<%=timeSlot.getTimeSlotID()%>"><%=timeSlot.getTimeSlotStart()%> - <%=timeSlot.getTimeSlotEnd()%></option>
                                 <%}%>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Date:</td>
-                        <td><input name="date" type="date" style="width: 79%;"></td>
+                        <td><input value="<%=schedule.getScheduleDate()%>" name="date" type="date" style="width: 79%;"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" id="submit-btn" value="Save"></td>

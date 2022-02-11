@@ -36,8 +36,6 @@ public class EditTeacher extends HttpServlet {
 
         int teacherID = Integer.parseInt(request.getParameter("teacherID"));
 
-        String oldUser = db.getTeacherByID(Integer.parseInt(request.getParameter("teacherID"))).getTeacherUsername().getUser();
-
         String teacherName = request.getParameter("teacherName");
         int teacherGender = Integer.parseInt(request.getParameter("teacherGender"));
         String teacherAddress = request.getParameter("teacherAddress");
@@ -46,13 +44,13 @@ public class EditTeacher extends HttpServlet {
         Date teacherDOB = Date.valueOf(request.getParameter("teacherDOB"));
         db.editTeacher1(teacherName, teacherGender, teacherAddress, teacherEmail, teacherPhone, teacherDOB, teacherID);
 
-        String newUser = request.getParameter("user");
+        String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         String displayName = request.getParameter("teacherName");
         int roleID = 2;
 
-        accountDB.editAccount(newUser, pass, displayName, roleID, oldUser);
-        db.editTeacher2(newUser, teacherID);
+        accountDB.editAccount(pass, displayName, roleID, user);
+        db.editTeacher2(user, teacherID);
 
         response.sendRedirect("../teacher");
     }

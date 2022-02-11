@@ -17,6 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ClassMember;
+import model.Student;
 
 /**
  *
@@ -42,10 +44,7 @@ public class EditStudent extends HttpServlet {
         AccountDBContext accountDB = new AccountDBContext();
         ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
 
-        String oldStudentID = request.getParameter("oldStudentID");
-        String newStudentID = request.getParameter("newStudentID");
-
-        String oldUser = db.getStudentByID(request.getParameter("oldStudentID")).getStudentUsername().getUser();
+        String studentID = request.getParameter("studentID");
 
         String studentName = request.getParameter("studentName");
         int studentGender = Integer.parseInt(request.getParameter("studentGender"));
@@ -54,16 +53,15 @@ public class EditStudent extends HttpServlet {
         String studentPhone = request.getParameter("studentPhone");
         Date studentDOB = Date.valueOf(request.getParameter("studentDOB"));
         int semesterID = Integer.parseInt(request.getParameter("semester"));
-        db.editStudent1(newStudentID, studentName, studentGender, studentAddress, studentEmail, studentPhone, studentDOB, semesterID, oldStudentID);
+        db.editStudent(studentName, studentGender, studentAddress, studentEmail, studentPhone, studentDOB, semesterID, studentID);
 
-        String newUser = request.getParameter("user");
+        String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         String displayName = request.getParameter("studentName");
         int roleID = 3;
-        accountDB.editAccount(newUser, pass, displayName, roleID, oldUser);
+        accountDB.editAccount(pass, displayName, roleID, user);
 
-        db.editStudent2(newUser, newStudentID);
-//        classMemberDB.editClassMember(Integer.parseInt(request.getParameter("class")), newStudentID);
+        classMemberDB.editClassMember(Integer.parseInt(request.getParameter("class")), studentID);
         response.sendRedirect("../student");
     }
 

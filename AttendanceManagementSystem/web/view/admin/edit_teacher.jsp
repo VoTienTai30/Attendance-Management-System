@@ -4,6 +4,8 @@
     Author     : midni
 --%>
 
+<%@page import="dal.TeacherDBContext"%>
+<%@page import="model.Teacher"%>
 <%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +17,8 @@
         <%
             int teacherID = Integer.parseInt(request.getAttribute("teacherID").toString());
             Account acc = (Account) request.getSession().getAttribute("account");
+            TeacherDBContext teacherDB = new TeacherDBContext();
+            Teacher t = teacherDB.getTeacherByID(teacherID);
         %>
     </head>
     <body>
@@ -43,38 +47,41 @@
                     </tr>
                     <tr>
                         <td><span>Teacher Name:</span></td>
-                        <td><input name="teacherName" type="text" class="input-box"></td>
+                        <td><input name="teacherName" type="text" class="input-box" value="<%=t.getTeacherName()%>"></td>
                     </tr>
                     <tr>
                         <td><span>Teacher Gender:</span></td>
                         <td>
-                            <input type="radio" name="teacherGender" value="1">Male
-                            <input type="radio" name="teacherGender" value="0">Female
+                            <input <% if (t.isTeacherGender()) {%>checked="checked"<%}%> type="radio" name="teacherGender" value="1">Male
+                            <input <% if (t.isTeacherGender() == false) {%>checked="checked"<%}%> type="radio" name="teacherGender" value="0">Female
                         </td>
                     </tr>
                     <tr>
                         <td><span>Teacher Address:</span></td>
-                        <td><input name="teacherAddress" type="text" class="input-box"></td>
+                        <td><input name="teacherAddress" type="text" class="input-box" value="<%=t.getTeacherAddress()%>"></td>
                     </tr>
                     <tr>
                         <td><span>Teacher Email:</span></td>
-                        <td><input name="teacherMail" type="text" class="input-box"></td>
+                        <td><input name="teacherMail" type="text" class="input-box" value="<%=t.getTeacherEmail()%>"></td>
                     </tr>
                     <tr>
                         <td><span>Teacher Phone:</span></td>
-                        <td><input name="teacherPhone" type="text" class="input-box"></td>
+                        <td><input name="teacherPhone" type="text" class="input-box" value="<%=t.getTeacherPhone()%>"></td>
                     </tr>
                     <tr>
                         <td><span>Date of Birth:</span></td>
-                        <td><input type="date" name="teacherDOB" class="input-box"></td>
+                        <td><input type="date" name="teacherDOB" class="input-box"  value="<%=t.getTeacherDOB()%>"></td>
                     </tr>
                     <tr>
                         <td><span>Username:</span></td>
-                        <td><input type="text" name="user" class="input-box"></td>
+                        <td>
+                            <span><%=t.getTeacherUsername().getUser()%></span>
+                            <input type="hidden" name="user" class="input-box" value="<%=t.getTeacherUsername().getUser()%>">
+                        </td>
                     </tr>
                     <tr>
                         <td><span>Password:</span></td>
-                        <td><input type="text" name="pass" class="input-box"></td>
+                        <td><input type="text" name="pass" class="input-box" value="<%=t.getTeacherUsername().getPass()%>"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" id="submit-btn" value="Save"></td>

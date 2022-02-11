@@ -135,7 +135,8 @@ public class TeacherDBContext extends DBContext {
     public Teacher getTeacherByID(int id) {
         Teacher t = new Teacher();
         try {
-            String sql = "SELECT * FROM dbo.Teacher WHERE TeacherID = ?";
+            String sql = "SELECT TeacherID, TeacherName, TeacherGender, TeacherAddress, TeacherEmail, TeacherPhone, TeacherDOB, Teacher.username, password \n"
+                    + "  FROM dbo.Teacher INNER JOIN dbo.Account ON Account.username = Teacher.username WHERE TeacherID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -154,8 +155,8 @@ public class TeacherDBContext extends DBContext {
                 t.setTeacherPhone(rs.getString("TeacherPhone"));
                 t.setTeacherDOB(rs.getDate("TeacherDOB"));
                 a.setUser(rs.getString("username"));
-                a.setDisplayName("");
-                a.setPass("");
+                a.setDisplayName(rs.getString("TeacherName"));
+                a.setPass(rs.getString("password"));
                 r.setRoleID(2);
                 r.setRoleName("teacher");
                 a.setRole(r);

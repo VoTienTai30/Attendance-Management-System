@@ -22,7 +22,7 @@ import model.Student;
  * @author midni
  */
 public class StudentDBContext extends DBContext {
-    
+
     public void addStudent(Student s) {
         try {
             String sql = "INSERT INTO dbo.Student\n"
@@ -67,52 +67,71 @@ public class StudentDBContext extends DBContext {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void deleteStudent(String id) {
+        String sql = "DELETE FROM dbo.Student WHERE StudentID = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "DELETE FROM dbo.Student WHERE StudentID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
-    
-    public void editStudent1(String newStudentID, String StudentName, int StudentGender, String StudentAddress,
-            String StudentEmail, String StudentPhone, Date StudentDOB, int SemesterID, String oldStudentID) {
+
+    public void editStudent(String StudentName, int StudentGender, String StudentAddress,
+            String StudentEmail, String StudentPhone, Date StudentDOB, int SemesterID, String StudentID) {
+        String sql = "UPDATE dbo.Student SET StudentName = ?, StudentGender = ?, "
+                + "StudentAddress = ?, StudentEmail = ?, StudentPhone = ?, StudentDOB = ?, "
+                + "SemesterID = ? WHERE StudentID = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE dbo.Student SET StudentID = ?, StudentName = ?, StudentGender = ?, "
-                    + "StudentAddress = ?, StudentEmail = ?, StudentPhone = ?, StudentDOB = ?, "
-                    + "SemesterID = ?, username = NULL WHERE StudentID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, newStudentID);
-            stm.setString(2, StudentName);
-            stm.setInt(3, StudentGender);
-            stm.setString(4, StudentAddress);
-            stm.setString(5, StudentEmail);
-            stm.setString(6, StudentPhone);
-            stm.setDate(7, StudentDOB);
-            stm.setInt(8, SemesterID);
-            stm.setString(9, oldStudentID);
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, StudentName);
+            stm.setInt(2, StudentGender);
+            stm.setString(3, StudentAddress);
+            stm.setString(4, StudentEmail);
+            stm.setString(5, StudentPhone);
+            stm.setDate(6, StudentDOB);
+            stm.setInt(7, SemesterID);
+            stm.setString(8, StudentID);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
-    
-    public void editStudent2(String newUser, String StudentID) {
-        try {
-            String sql = "UPDATE dbo.Student SET username = ? WHERE StudentID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, newUser);
-            stm.setString(2, StudentID);
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+
     public ArrayList<Student> getStudent(String id) {
         ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
         ArrayList<Student> list = new ArrayList<>();
@@ -147,12 +166,14 @@ public class StudentDBContext extends DBContext {
         }
         return list;
     }
-    
+
     public Student getStudentByID(String id) {
         ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
         Student s = new Student();
         try {
-            String sql = "SELECT * FROM dbo.Student WHERE StudentID = ?";
+            String sql = "SELECT StudentID, StudentName, StudentGender, StudentAddress, StudentEmail, "
+                    + "StudentPhone, StudentDOB, SemesterID, Account.username, password \n"
+                    + "  FROM dbo.Student INNER JOIN dbo.Account ON Account.username = Student.username WHERE StudentID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, id);
             ResultSet rs = stm.executeQuery();
@@ -177,7 +198,7 @@ public class StudentDBContext extends DBContext {
                 s.setSemester(semester);
                 a.setUser(rs.getString("username"));
                 a.setDisplayName(rs.getString("StudentName"));
-                a.setPass("");
+                a.setPass(rs.getString("password"));
                 r.setRoleID(3);
                 r.setRoleName("student");
                 a.setRole(r);

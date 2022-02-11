@@ -57,18 +57,33 @@ public class AccountDBContext extends DBContext {
         }
     }
 
-    public void editAccount(String newUser, String pass, String displayName, int roleID, String oldUser) {
+    public void editAccount(String pass, String displayName, int roleID, String user) {
+        String sql = "UPDATE dbo.Account SET password = ?, displayname = ?, roleID = ? WHERE username = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE dbo.Account SET username = ?, password = ?, displayname = ?, roleID = ? WHERE username = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, newUser);
-            stm.setString(2, pass);
-            stm.setString(3, displayName);
-            stm.setInt(4, roleID);
-            stm.setString(5, oldUser);
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, pass);
+            stm.setString(2, displayName);
+            stm.setInt(3, roleID);
+            stm.setString(4, user);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 

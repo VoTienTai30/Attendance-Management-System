@@ -111,4 +111,29 @@ public class ScheduleDBContext extends DBContext {
         }
         return list;
     }
+
+    public Schedule getScheduleByID(int id) {
+        TeacherDBContext teacherDB = new TeacherDBContext();
+        SubjectDBContext subjectDB = new SubjectDBContext();
+        ClassDBContext classDB = new ClassDBContext();
+        TimeSlotDBContext timeSlotDB = new TimeSlotDBContext();
+        Schedule schedule = new Schedule();
+        try {
+            String sql = "SELECT * FROM dbo.Schedule WHERE ScheduleID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                schedule.setScheduleID(rs.getInt("ScheduleID"));
+                schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));
+                schedule.setSubjectID(subjectDB.getSubjectByID(rs.getInt("SubjectID")));
+                schedule.setClassID(classDB.getClasseByID(rs.getInt("ClassID")));
+                schedule.setTimeSlotID(timeSlotDB.getTimeSlot(rs.getInt("TimeSlotID")).get(0));
+                schedule.setScheduleDate(rs.getDate("ScheduleDate"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return schedule;
+    }
 }
