@@ -20,19 +20,21 @@ import model.Subject;
  * @author midni
  */
 public class AddSubject extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         SubjectDBContext db = new SubjectDBContext();
         Subject subject = new Subject();
         Semester semester = new Semester();
-        
+
         String subjectCode = request.getParameter("subjectCode");
         int totalSlot = Integer.parseInt(request.getParameter("totalSlot"));
         int semesterID = Integer.parseInt(request.getParameter("semester"));
@@ -40,7 +42,7 @@ public class AddSubject extends HttpServlet {
         semester.setSemesterID(semesterID);
         semester.setSemesterName(semesterName);
         String subjectName = request.getParameter("subjectCode");
-        
+
         subject.setSubjectCode(subjectCode);
         subject.setTotalSlot(totalSlot);
         subject.setSemester(semester);
@@ -48,7 +50,7 @@ public class AddSubject extends HttpServlet {
         db.addSubject(subject);
         response.sendRedirect("../subject");
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";

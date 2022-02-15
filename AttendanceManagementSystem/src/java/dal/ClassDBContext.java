@@ -19,36 +19,84 @@ import java.util.logging.Logger;
 public class ClassDBContext extends DBContext {
 
     public void addClass(model.Class c) {
+        String sql = "INSERT INTO [dbo].[Class] ([ClassName]) VALUES (?)";
+        PreparedStatement stm = null;
         try {
-            String sql = "INSERT INTO [dbo].[Class] ([ClassName]) VALUES (?)";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, c.getClassName());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void deleteClass(int id) {
+        String sql = "DELETE FROM [Attendance_Management].[dbo].[Class] WHERE [ClassID] = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "DELETE FROM [Attendance_Management].[dbo].[Class] WHERE [ClassID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void editClass(int ClassID, String ClassName) {
+        String sql = "UPDATE [Attendance_Management].[dbo].[Class] SET [ClassName] = ? WHERE [ClassID] = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE [Attendance_Management].[dbo].[Class] SET [ClassName] = ? WHERE [ClassID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, ClassName);
             stm.setInt(2, ClassID);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClassDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 

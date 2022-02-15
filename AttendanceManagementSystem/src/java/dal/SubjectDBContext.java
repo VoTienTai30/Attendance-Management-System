@@ -17,9 +17,10 @@ import model.Subject;
 public class SubjectDBContext extends DBContext {
 
     public void addSubject(Subject s) {
+        String sql = "INSERT INTO [dbo].[Subject] ([SubjectCode], [TotalSlot], [SemesterID], [SubjectName]) VALUES (?, ?, ?, ?)";
+        PreparedStatement stm = null;
         try {
-            String sql = "INSERT INTO [dbo].[Subject] ([SubjectCode], [TotalSlot], [SemesterID], [SubjectName]) VALUES (?, ?, ?, ?)";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, s.getSubjectCode());
             stm.setInt(2, s.getTotalSlot());
             stm.setInt(3, s.getSemester().getSemesterID());
@@ -27,24 +28,56 @@ public class SubjectDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void deleteSubject(int id) {
+        String sql = "DELETE FROM [Attendance_Management].[dbo].[Subject] WHERE [SubjectID] = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "DELETE FROM [Attendance_Management].[dbo].[Subject] WHERE [SubjectID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void editSubject(int subjectID, String subjectCode, int totalSlot, int semesterID, String subjectName) {
+        String sql = "UPDATE [Attendance_Management].[dbo].[Subject] SET [SubjectCode] = ?, [TotalSlot] = ?, [SemesterID] = ?, [SubjectName] = ? WHERE [SubjectID] = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE [Attendance_Management].[dbo].[Subject] SET [SubjectCode] = ?, [TotalSlot] = ?, [SemesterID] = ?, [SubjectName] = ? WHERE [SubjectID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, subjectCode);
             stm.setInt(2, totalSlot);
             stm.setInt(3, semesterID);
@@ -53,6 +86,21 @@ public class SubjectDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 

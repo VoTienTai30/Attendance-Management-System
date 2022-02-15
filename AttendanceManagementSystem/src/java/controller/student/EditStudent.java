@@ -29,6 +29,8 @@ public class EditStudent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         String studentID = request.getParameter("id");
         request.setAttribute("studentID", studentID);
         ClassDBContext classDB = new ClassDBContext();
@@ -40,6 +42,8 @@ public class EditStudent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         StudentDBContext db = new StudentDBContext();
         AccountDBContext accountDB = new AccountDBContext();
         ClassMemberDBContext classMemberDB = new ClassMemberDBContext();

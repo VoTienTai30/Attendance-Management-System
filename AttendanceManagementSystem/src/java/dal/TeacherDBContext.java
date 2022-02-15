@@ -23,27 +23,28 @@ import model.Teacher;
 public class TeacherDBContext extends DBContext {
 
     public void addTeacher(Teacher t) {
+        String sql = "INSERT INTO dbo.Teacher\n"
+                + "  (\n"
+                + "      TeacherName,\n"
+                + "      TeacherGender,\n"
+                + "      TeacherAddress,\n"
+                + "      TeacherEmail,\n"
+                + "      TeacherPhone,\n"
+                + "      TeacherDOB,\n"
+                + "      username\n"
+                + "  )\n"
+                + "  VALUES\n"
+                + "  (   ?,       \n"
+                + "      ?,     \n"
+                + "      ?,    \n"
+                + "      ?,      \n"
+                + "      ?,       \n"
+                + "      ?, \n"
+                + "      ?       \n"
+                + "      )";
+        PreparedStatement stm = null;
         try {
-            String sql = "INSERT INTO dbo.Teacher\n"
-                    + "  (\n"
-                    + "      TeacherName,\n"
-                    + "      TeacherGender,\n"
-                    + "      TeacherAddress,\n"
-                    + "      TeacherEmail,\n"
-                    + "      TeacherPhone,\n"
-                    + "      TeacherDOB,\n"
-                    + "      username\n"
-                    + "  )\n"
-                    + "  VALUES\n"
-                    + "  (   ?,       \n"
-                    + "      ?,     \n"
-                    + "      ?,    \n"
-                    + "      ?,      \n"
-                    + "      ?,       \n"
-                    + "      ?, \n"
-                    + "      ?       \n"
-                    + "      )";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, t.getTeacherName());
             if (t.isTeacherGender()) {
                 stm.setInt(2, 1);
@@ -58,26 +59,59 @@ public class TeacherDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void deleteTeacher(int id) {
+
+        String sql = "DELETE FROM dbo.Teacher WHERE TeacherID = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "DELETE FROM dbo.Teacher WHERE TeacherID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
-    public void editTeacher1(String TeacherName, int TeacherGender, String TeacherAddress,
+    public void editTeacher(String TeacherName, int TeacherGender, String TeacherAddress,
             String TeacherEmail, String TeacherPhone, Date TeacherDOB, int TeacherID) {
+        String sql = "UPDATE dbo.Teacher SET TeacherName = ?, TeacherGender = ?, TeacherAddress = ?, TeacherEmail = ?, "
+                + "TeacherPhone = ?, TeacherDOB = ? WHERE TeacherID = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE dbo.Teacher SET TeacherName = ?, TeacherGender = ?, TeacherAddress = ?, TeacherEmail = ?, "
-                    + "TeacherPhone = ?, TeacherDOB = ?, username = NULL WHERE TeacherID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, TeacherName);
             stm.setInt(2, TeacherGender);
             stm.setString(3, TeacherAddress);
@@ -88,18 +122,21 @@ public class TeacherDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void editTeacher2(String newUser, int TeacherID) {
-        try {
-            String sql = "UPDATE dbo.Teacher SET username = ? WHERE TeacherID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, newUser);
-            stm.setInt(2, TeacherID);
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 

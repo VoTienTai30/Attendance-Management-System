@@ -31,6 +31,8 @@ public class EditSchedule extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         int scheduleID = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("scheduleID", scheduleID);
 
@@ -53,6 +55,8 @@ public class EditSchedule extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         ScheduleDBContext scheduleDB = new ScheduleDBContext();
 
         int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));

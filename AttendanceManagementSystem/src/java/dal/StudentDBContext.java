@@ -24,31 +24,32 @@ import model.Student;
 public class StudentDBContext extends DBContext {
 
     public void addStudent(Student s) {
+        String sql = "INSERT INTO dbo.Student\n"
+                + "(\n"
+                + "    StudentID,\n"
+                + "    StudentName,\n"
+                + "    StudentGender,\n"
+                + "    StudentAddress,\n"
+                + "    StudentEmail,\n"
+                + "    StudentPhone,\n"
+                + "    StudentDOB,\n"
+                + "    SemesterID,\n"
+                + "    username\n"
+                + ")\n"
+                + "VALUES\n"
+                + "(   ?,\n"
+                + "    ?,\n"
+                + "    ?,\n"
+                + "    ?,\n"
+                + "    ?,\n"
+                + "    ?,\n"
+                + "    ?,\n"
+                + "    ?,\n"
+                + "    ?\n"
+                + "    )";
+        PreparedStatement stm = null;
         try {
-            String sql = "INSERT INTO dbo.Student\n"
-                    + "(\n"
-                    + "    StudentID,\n"
-                    + "    StudentName,\n"
-                    + "    StudentGender,\n"
-                    + "    StudentAddress,\n"
-                    + "    StudentEmail,\n"
-                    + "    StudentPhone,\n"
-                    + "    StudentDOB,\n"
-                    + "    SemesterID,\n"
-                    + "    username\n"
-                    + ")\n"
-                    + "VALUES\n"
-                    + "(   ?,\n"
-                    + "    ?,\n"
-                    + "    ?,\n"
-                    + "    ?,\n"
-                    + "    ?,\n"
-                    + "    ?,\n"
-                    + "    ?,\n"
-                    + "    ?,\n"
-                    + "    ?\n"
-                    + "    )";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, s.getStudentID());
             stm.setString(2, s.getStudentName());
             if (s.isStudentGender()) {
@@ -65,6 +66,21 @@ public class StudentDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 

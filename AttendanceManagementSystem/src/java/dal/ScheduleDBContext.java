@@ -21,9 +21,10 @@ import model.Schedule;
 public class ScheduleDBContext extends DBContext {
 
     public void addSchedule(Schedule schedule) {
+        String sql = "INSERT INTO [dbo].[Schedule] ([TeacherID], [SubjectID], [ClassID], [TimeSlotID], [ScheduleDate]) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement stm = null;
         try {
-            String sql = "INSERT INTO [dbo].[Schedule] ([TeacherID], [SubjectID], [ClassID], [TimeSlotID], [ScheduleDate]) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, schedule.getTeacherID().getTeacherID());
             stm.setInt(2, schedule.getSubjectID().getSubjectID());
             stm.setInt(3, schedule.getClassID().getClassID());
@@ -32,25 +33,57 @@ public class ScheduleDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void deleteSchedule(int id) {
+        String sql = "DELETE FROM [Attendance_Management].[dbo].[Schedule] WHERE [ScheduleID] = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "DELETE FROM [Attendance_Management].[dbo].[Schedule] WHERE [ScheduleID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void editSchedule(int scheduleID, int teacherID, int subjectID, int classID, int timeSlotID, Date scheduleDate) {
+        String sql = "UPDATE [Attendance_Management].[dbo].[Schedule] SET [TeacherID] = ?, "
+                + "[SubjectID] = ?, [ClassID] = ?, [TimeSlotID] = ?, [ScheduleDate] = ? WHERE [ScheduleID] = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE [Attendance_Management].[dbo].[Schedule] SET [TeacherID] = ?, "
-                    + "[SubjectID] = ?, [ClassID] = ?, [TimeSlotID] = ?, [ScheduleDate] = ? WHERE [ScheduleID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, teacherID);
             stm.setInt(2, subjectID);
             stm.setInt(3, classID);
@@ -60,6 +93,21 @@ public class ScheduleDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 

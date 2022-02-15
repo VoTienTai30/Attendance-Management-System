@@ -21,6 +21,8 @@ public class EditSubject extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         int subjectID = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("subjectID", subjectID);
         request.getRequestDispatcher("/view/admin/edit_subject.jsp").forward(request, response);
@@ -29,6 +31,8 @@ public class EditSubject extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         SubjectDBContext db = new SubjectDBContext();
         int subjectID = Integer.parseInt(request.getParameter("subjectID"));
         String subjectCode = request.getParameter("subjectCode");

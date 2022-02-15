@@ -33,6 +33,8 @@ public class AddTeacher extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         TeacherDBContext db = new TeacherDBContext();
         AccountDBContext accountDB = new AccountDBContext();
         Teacher t = new Teacher();

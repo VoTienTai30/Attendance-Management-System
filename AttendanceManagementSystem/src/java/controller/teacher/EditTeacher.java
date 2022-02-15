@@ -23,6 +23,8 @@ public class EditTeacher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         int teacherID = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("teacherID", teacherID);
         request.getRequestDispatcher("/view/admin/edit_teacher.jsp").forward(request, response);
@@ -31,6 +33,8 @@ public class EditTeacher extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         TeacherDBContext db = new TeacherDBContext();
         AccountDBContext accountDB = new AccountDBContext();
 
@@ -42,7 +46,7 @@ public class EditTeacher extends HttpServlet {
         String teacherEmail = request.getParameter("teacherMail");
         String teacherPhone = request.getParameter("teacherPhone");
         Date teacherDOB = Date.valueOf(request.getParameter("teacherDOB"));
-        db.editTeacher1(teacherName, teacherGender, teacherAddress, teacherEmail, teacherPhone, teacherDOB, teacherID);
+        db.editTeacher(teacherName, teacherGender, teacherAddress, teacherEmail, teacherPhone, teacherDOB, teacherID);
 
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
@@ -50,7 +54,6 @@ public class EditTeacher extends HttpServlet {
         int roleID = 2;
 
         accountDB.editAccount(pass, displayName, roleID, user);
-        db.editTeacher2(user, teacherID);
 
         response.sendRedirect("../teacher");
     }

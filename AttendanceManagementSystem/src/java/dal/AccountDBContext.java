@@ -21,21 +21,22 @@ import model.Role;
 public class AccountDBContext extends DBContext {
 
     public void addAccount(Account a) {
+        String sql = "INSERT INTO dbo.Account\n"
+                + "  (\n"
+                + "      username,\n"
+                + "      password,\n"
+                + "      displayname,\n"
+                + "      roleID\n"
+                + "  )\n"
+                + "  VALUES\n"
+                + "  (   ?, \n"
+                + "      ?, \n"
+                + "      ?, \n"
+                + "      ? \n"
+                + "      )\n";
+        PreparedStatement stm = null;
         try {
-            String sql = "INSERT INTO dbo.Account\n"
-                    + "  (\n"
-                    + "      username,\n"
-                    + "      password,\n"
-                    + "      displayname,\n"
-                    + "      roleID\n"
-                    + "  )\n"
-                    + "  VALUES\n"
-                    + "  (   ?, \n"
-                    + "      ?, \n"
-                    + "      ?, \n"
-                    + "      ? \n"
-                    + "      )\n";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, a.getUser());
             stm.setString(2, a.getPass());
             stm.setString(3, a.getDisplayName());
@@ -43,17 +44,48 @@ public class AccountDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
     public void deleteAccount(String user) {
+        String sql = "DELETE FROM dbo.Account WHERE username = ?";
+        PreparedStatement stm = null;
         try {
-            String sql = "DELETE FROM dbo.Account WHERE username = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, user);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
