@@ -45,12 +45,13 @@
                         <th>Action</th>
                     </tr>
                     <%
+                        int index = 1;
                         for (int i = 0; i < list.size(); i++) {
                             Schedule s = list.get(i);
-                            if (s.getScheduleDate().compareTo(date) == 0) {
+                            if (s.getScheduleDate().compareTo(Date.valueOf(date.toString())) == 0) {
                     %>
                     <tr>
-                        <td><%=i + 1%></td>
+                        <td><%=index%></td>
                         <td><%=s.getSubjectID().getSubjectCode()%></td>
                         <td><%=s.getSubjectID().getSubjectName()%></td>
                         <td><%=s.getClassID().getClassName()%></td>
@@ -59,6 +60,7 @@
                         <td><a href="#">Check</a></td>
                     </tr>
                     <%
+                                index = index + 1;
                             }
                         }
                     %>

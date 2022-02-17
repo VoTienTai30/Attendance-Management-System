@@ -5,6 +5,7 @@
  */
 package controller.schedule;
 
+import dal.AttendanceDBContext;
 import dal.ClassDBContext;
 import dal.ScheduleDBContext;
 import dal.SubjectDBContext;
@@ -66,8 +67,13 @@ public class EditSchedule extends HttpServlet {
         int timeSlotID = Integer.parseInt(request.getParameter("timeSlotID"));
         Date date = Date.valueOf(request.getParameter("date"));
 
+        AttendanceDBContext attendanceDB = new AttendanceDBContext();
+        attendanceDB.deleteAttendance(scheduleID);
+        
         scheduleDB.editSchedule(scheduleID, teacherID, subjectID, classID, timeSlotID, date);
-        response.sendRedirect("../schedule");
+
+        request.setAttribute("classID", request.getParameter("classID"));
+        request.getRequestDispatcher("../../attendance/add").forward(request, response);
     }
 
     @Override
