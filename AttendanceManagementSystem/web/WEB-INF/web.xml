@@ -116,6 +116,14 @@
         <servlet-name>EditAttendance</servlet-name>
         <servlet-class>controller.teacher.EditAttendance</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeStudent</servlet-name>
+        <servlet-class>controller.student.HomeStudent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAttendance</servlet-name>
+        <servlet-class>controller.student.ViewAttendance</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -227,6 +235,14 @@
     <servlet-mapping>
         <servlet-name>EditAttendance</servlet-name>
         <url-pattern>/teacher/edit-attendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeStudent</servlet-name>
+        <url-pattern>/student/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendance</servlet-name>
+        <url-pattern>/student/view-attendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

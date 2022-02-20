@@ -225,4 +225,46 @@ public class StudentDBContext extends DBContext {
         }
         return s;
     }
+
+    public Student getStudentByUsername(String user) {
+        ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
+        Student s = new Student();
+        try {
+            String sql = "SELECT * FROM dbo.Student WHERE username = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Account a = new Account();
+                Role r = new Role();
+                Semester semester = new Semester();
+                s.setStudentID(rs.getString("StudentID"));
+                s.setStudentName(rs.getString("StudentName"));
+                if (rs.getInt("StudentGender") == 1) {
+                    s.setStudentGender(true);
+                } else {
+                    s.setStudentGender(false);
+                }
+                s.setStudentAddress(rs.getString("StudentAddress"));
+                s.setStudentEmail(rs.getString("StudentEmail"));
+                s.setStudentPhone(rs.getString("StudentPhone"));
+                s.setStudentDOB(rs.getDate("StudentDOB"));
+                s.setClassID(classMemberDB.getClassByStudentID(rs.getString("StudentID")));
+                semester.setSemesterID(rs.getInt("SemesterID"));
+                semester.setSemesterName("Semester " + rs.getInt("SemesterID"));
+                s.setSemester(semester);
+                a.setUser(rs.getString("username"));
+                a.setDisplayName(rs.getString("StudentName"));
+                a.setPass(rs.getString("password"));
+                r.setRoleID(3);
+                r.setRoleName("student");
+                a.setRole(r);
+                s.setStudentUsername(a);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return s;
+    }
+
 }
