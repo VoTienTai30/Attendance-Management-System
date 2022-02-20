@@ -54,7 +54,7 @@ header {
     background: #000;
 }
 
-#schedule{
+#attendance{
     margin-top: 80px;
     display: flex;
     justify-content: center;
@@ -62,7 +62,7 @@ header {
     margin-left: 218.05px;
 }
 
-#schedule-container{
+#attendance-container{
     background: #fff;
     border-radius: 7px;
     padding-bottom: 30px;
@@ -83,50 +83,32 @@ header {
 table{
     border-collapse: collapse;
     margin: 0 30px;
-}
-
-table, td, th {
-    border-bottom: 1px solid #ddd;
+    margin-top: 30px;
 }
 
 td, th {
     font-size: 18px;
     font-family: calibri;
-    padding: 4px 20px;
-    padding-top: 20px;
+    padding: 8px 80px;
 }
 
-form{
-    margin: 20px 0;
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#submit-btn{
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
-form input:first-child{
-    width: 300px;
-    border: #d0d1d3 1px solid;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-form input:last-child{
+form input:last-child {
     font-size: 20px;
     font-family: calibri;
     padding: 7px 20px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 5px;
     border: 0;
     background: #f47424;
     color: #fff;
-    cursor: pointer;
-}
-
-td a{
-    color: #007bff;
-    text-decoration: none;
-}
-
-td a:hover{
-    color: #0056b3;
-    text-decoration: underline;
+    margin-top: 30px;
 }

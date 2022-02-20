@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@page import="dal.AttendanceDBContext"%>
 <%@page import="model.Schedule"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Date"%>
@@ -13,12 +14,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>List Attendance</title>
         <link href="../css/CheckAttendanceStyle.css" rel="stylesheet" type="text/css"/>
         <%
             Account acc = (Account) request.getSession().getAttribute("account");
             Date date = (Date) request.getAttribute("date");
             ArrayList<Schedule> list = (ArrayList) request.getAttribute("list");
+            AttendanceDBContext attendanceDB = new AttendanceDBContext();
         %>
     </head>
     <body>
@@ -27,9 +29,16 @@
             <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a></div>
         </header>
 
-        <div id="schedule-container">
-            <div>
-                <form action="check-attendance" method="POST">
+        <div id="nav-bar">
+            <a href="../teacher/home">Home</a>
+            <a href="#">Check Attendance</a>
+        </div>
+
+        <div id="schedule">
+            <div id="schedule-container">
+                <div class="attendance-title">Check Attendance</div>
+
+                <form id="searchByDate" action="check-attendance" method="POST">
                     <input type="date" name="dateSearch" value="<%=date%>">
                     <input type="submit" value="Search">
                 </form>
@@ -57,7 +66,13 @@
                         <td><%=s.getClassID().getClassName()%></td>
                         <td><%=s.getTimeSlotID().getTimeSlotStart()%> - <%=s.getTimeSlotID().getTimeSlotEnd()%></td>
                         <td><%=s.getScheduleDate()%></td>
-                        <td><a href="#">Check</a></td>
+                        <td><a href="edit-attendance?id=<%=s.getScheduleID()%>"><%
+                            if (attendanceDB.isAttendanceYet(s.getScheduleID())) {
+                                %>Edit<%
+                                } else {
+                                %>Check<%
+                                    }
+                                %></a></td>
                     </tr>
                     <%
                                 index = index + 1;

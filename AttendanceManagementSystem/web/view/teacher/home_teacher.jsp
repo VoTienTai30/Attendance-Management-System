@@ -23,7 +23,6 @@
         <div id="nav-bar">
             <a href="#">Home</a>
             <a href="../teacher/check-attendance">Check Attendance</a>
-            <a href="#">Attendance Record</a>
         </div>
 
         <div id="background">
