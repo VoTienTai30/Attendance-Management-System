@@ -111,36 +111,44 @@ public class ScheduleDBContext extends DBContext {
         }
     }
 
-    public ArrayList<Schedule> getSchedule(String date) {
+    public ArrayList<Schedule> getSchedule(String date, int pageIndex, int pageSize) {
         TeacherDBContext teacherDB = new TeacherDBContext();
         SubjectDBContext subjectDB = new SubjectDBContext();
         ClassDBContext classDB = new ClassDBContext();
         TimeSlotDBContext timeSlotDB = new TimeSlotDBContext();
         ArrayList<Schedule> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM dbo.Schedule";
+            String sql = "SELECT * FROM \n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY ScheduleDate DESC) AS row_index, * FROM dbo.Schedule) schedule\n"
+                    + "WHERE row_index BETWEEN (? - 1) * ? + 1 AND ? * ?";
+            if (date != null) {
+                sql = "SELECT * FROM \n"
+                        + "(SELECT ROW_NUMBER() OVER (ORDER BY ScheduleDate DESC) AS row_index, * FROM dbo.Schedule WHERE ScheduleDate = ?) schedule\n"
+                        + "WHERE row_index BETWEEN (? - 1) * ? + 1 AND ? * ?";
+            }
             PreparedStatement stm = connection.prepareStatement(sql);
+            if (date == null) {
+                stm.setInt(1, pageIndex);
+                stm.setInt(2, pageSize);
+                stm.setInt(3, pageIndex);
+                stm.setInt(4, pageSize);
+            } else {
+                stm.setString(1, date);
+                stm.setInt(2, pageIndex);
+                stm.setInt(3, pageSize);
+                stm.setInt(4, pageIndex);
+                stm.setInt(5, pageSize);
+            }
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                if (date == null) {
-                    Schedule schedule = new Schedule();
-                    schedule.setScheduleID(rs.getInt("ScheduleID"));
-                    schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));
-                    schedule.setSubjectID(subjectDB.getSubjectByID(rs.getInt("SubjectID")));
-                    schedule.setClassID(classDB.getClasseByID(rs.getInt("ClassID")));
-                    schedule.setTimeSlotID(timeSlotDB.getTimeSlot(rs.getInt("TimeSlotID")).get(0));
-                    schedule.setScheduleDate(rs.getDate("ScheduleDate"));
-                    list.add(schedule);
-                } else if (rs.getDate("ScheduleDate").toString().compareTo(date) == 0) {
-                    Schedule schedule = new Schedule();
-                    schedule.setScheduleID(rs.getInt("ScheduleID"));
-                    schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));
-                    schedule.setSubjectID(subjectDB.getSubjectByID(rs.getInt("SubjectID")));
-                    schedule.setClassID(classDB.getClasseByID(rs.getInt("ClassID")));
-                    schedule.setTimeSlotID(timeSlotDB.getTimeSlot(rs.getInt("TimeSlotID")).get(0));
-                    schedule.setScheduleDate(rs.getDate("ScheduleDate"));
-                    list.add(schedule);
-                }
+                Schedule schedule = new Schedule();
+                schedule.setScheduleID(rs.getInt("ScheduleID"));
+                schedule.setTeacherID(teacherDB.getTeacherByID(rs.getInt("TeacherID")));
+                schedule.setSubjectID(subjectDB.getSubjectByID(rs.getInt("SubjectID")));
+                schedule.setClassID(classDB.getClasseByID(rs.getInt("ClassID")));
+                schedule.setTimeSlotID(timeSlotDB.getTimeSlot(rs.getInt("TimeSlotID")).get(0));
+                schedule.setScheduleDate(rs.getDate("ScheduleDate"));
+                list.add(schedule);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,7 +157,7 @@ public class ScheduleDBContext extends DBContext {
     }
 
     public ArrayList<Schedule> getScheduleByUsername(String user) {
-        ArrayList<Schedule> rawList = getSchedule(null);
+        ArrayList<Schedule> rawList = getSchedule(null, 1, count(null));
         ArrayList<Schedule> list = new ArrayList<>();
         for (int i = 0; i < rawList.size(); i++) {
             Schedule get = rawList.get(i);
@@ -183,5 +191,25 @@ public class ScheduleDBContext extends DBContext {
             Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return schedule;
+    }
+
+    public int count(String date) {
+        try {
+            String sql = "SELECT COUNT(*) Total FROM dbo.Schedule";
+            if (date != null) {
+                sql += " WHERE ScheduleDate = ?";
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if (date != null) {
+                stm.setDate(1, Date.valueOf(date));
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }

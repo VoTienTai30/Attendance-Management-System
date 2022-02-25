@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="model.TimeSlot"%>
 <%@page import="model.Subject"%>
 <%@page import="model.Teacher"%>
@@ -24,6 +25,15 @@
             ArrayList<Subject> listSubject = (ArrayList<Subject>) request.getAttribute("listSubject");
             ArrayList<model.Class> listClass = (ArrayList<model.Class>) request.getAttribute("listClass");
             ArrayList<TimeSlot> listTimeSlot = (ArrayList<TimeSlot>) request.getAttribute("listTimeSlot");
+            int totalPage = Integer.parseInt(request.getAttribute("totalPage").toString());
+            String dateSearch = null;
+            if (request.getAttribute("dateSearch") != null) {
+                dateSearch = request.getAttribute("dateSearch").toString();
+            }
+            int pageIndex = 1;
+            if (request.getParameter("pageIndex") != null) {
+                pageIndex = Integer.parseInt(request.getAttribute("pageIndex").toString());
+            }
         %>
     </head>
     <body>
@@ -109,10 +119,12 @@
 
             <div id="schedule-list">
                 <div class="schedule-title">Schedule List</div>
+
                 <form action="../admin/schedule" method="post">
-                    <input name="dateSearch" type="date">
+                    <input name="dateSearch" type="date" <% if (dateSearch != null) {%>value="<%=dateSearch%>"<%} %>>
                     <input type="submit" value="Search">
                 </form>
+
                 <table id="schedule-table" border="1px" border-collapse="collapse">
                     <thead>
                         <tr>
@@ -145,6 +157,12 @@
                         %>
                     </tbody>
                 </table>
+
+                <form id="page" action="../admin/schedule" method="POST">
+                    Page: <input type="number" name="pageIndex" value="<%=pageIndex%>" size="<%=totalPage%>" />/<%=totalPage%>
+                    <input type="hidden" name="dateSearch" value="<%=dateSearch%>">
+                    <input type="submit" value="Go" />
+                </form>
             </div>
         </div>
     </body>

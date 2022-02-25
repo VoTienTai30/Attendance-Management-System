@@ -38,12 +38,12 @@ public class AddAttendance extends HttpServlet {
         ScheduleDBContext scheduleDB = new ScheduleDBContext();
         AttendanceDBContext attendanceDB = new AttendanceDBContext();
         ArrayList<Attendance> listAttendance = new ArrayList<>();
-        ArrayList<Schedule> listSchedule = scheduleDB.getSchedule(null);
+        ArrayList<Schedule> listSchedule = scheduleDB.getSchedule(null, 1, scheduleDB.count(null));
         ClassMemberDBContext classMemberDB = new ClassMemberDBContext();
         ArrayList<ClassMember> listStudent = classMemberDB.getClassMemberByClassID(Integer.parseInt(request.getAttribute("classID").toString()));
         for (int i = 0; i < listStudent.size(); i++) {
             Attendance a = new Attendance();
-            a.setScheduleID(listSchedule.get(listSchedule.size() - 1));
+            a.setScheduleID(listSchedule.get(0));
             a.setStudentID(listStudent.get(i).getStudentID());
             listAttendance.add(a);
         }
