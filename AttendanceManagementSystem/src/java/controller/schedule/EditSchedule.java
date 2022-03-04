@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Schedule;
 import model.Subject;
 import model.Teacher;
 import model.TimeSlot;
@@ -35,7 +36,9 @@ public class EditSchedule extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         int scheduleID = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("scheduleID", scheduleID);
+        ScheduleDBContext scheduleDB = new ScheduleDBContext();
+        Schedule schedule = scheduleDB.getScheduleByID(scheduleID);
+        request.setAttribute("schedule", schedule);
 
         TeacherDBContext teacherDB = new TeacherDBContext();
         SubjectDBContext subjectDB = new SubjectDBContext();
@@ -69,7 +72,7 @@ public class EditSchedule extends HttpServlet {
 
         AttendanceDBContext attendanceDB = new AttendanceDBContext();
         attendanceDB.deleteAttendance(scheduleID);
-        
+
         scheduleDB.editSchedule(scheduleID, teacherID, subjectID, classID, timeSlotID, date);
 
         request.setAttribute("classID", request.getParameter("classID"));

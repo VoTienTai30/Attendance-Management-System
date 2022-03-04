@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Student"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Account"%>
@@ -14,16 +15,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Student</title>
         <link href="../css/StudentAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            Account acc = (Account) request.getSession().getAttribute("account");
-            ArrayList<Student> listStudent = (ArrayList<Student>) request.getAttribute("listStudent");
-            ArrayList<model.Class> listClass = (ArrayList<model.Class>) request.getAttribute("listClass");
-        %>
     </head>
     <body>
         <header>
             <a href="../admin/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -64,27 +60,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            for (int i = 0; i < listStudent.size(); i++) {
-                                Student student = listStudent.get(i);
-                        %>
-                        <tr>
-                            <td><%=i + 1%></td>
-                            <td><%=student.getStudentID()%></td>
-                            <td><%=student.getStudentName()%></td>
-                            <td><% if (student.isStudentGender()) { %>Male<%} else {%>Female<%}%></td>
-                            <td><%=student.getStudentAddress()%></td>
-                            <td><%=student.getStudentEmail()%></td>
-                            <td><%=student.getStudentPhone()%></td>
-                            <td><%=student.getStudentDOB()%></td>
-                            <td><%=student.getClassID().getClassName()%></td>
-                            <td><%=student.getSemester().getSemesterName()%></td>
-                            <td><a href="../admin/student/edit?id=<%=student.getStudentID()%>">Edit</a></td>
-                            <td><a href="../admin/student/delete?id=<%=student.getStudentID()%>">Delete</a></td>
-                        </tr>
-                        <%
-                            }
-                        %>
+                        <c:set var="i" value="1"></c:set>
+                        <c:forEach items="${requestScope.listStudent}" var="student">
+                            <tr>
+                                <td>${i}<c:set var="i" value="${i+1}"></c:set></td>
+                                <td>${student.studentID}</td>
+                                <td>${student.studentName}</td>
+                                <td><c:if test="${student.studentGender}">Male</c:if><c:if test="${student.studentGender==false}">Female</c:if></td>
+                                <td>${student.studentAddress}</td>
+                                <td>${student.studentEmail}</td>
+                                <td>${student.studentPhone}</td>
+                                <td>${student.studentDOB}</td>
+                                <td>${student.classID.className}</td>
+                                <td>${student.semester.semesterName}</td>
+                                <td><a href="../admin/student/edit?id=${student.studentID}">Edit</a></td>
+                                <td><a href="../admin/student/delete?id=${student.studentID}">Delete</a></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div> 
@@ -131,14 +123,9 @@
                                 <td>Class:</td>
                                 <td>
                                     <select name="class">
-                                        <%
-                                            for (int i = 0; i < listClass.size(); i++) {
-                                                model.Class c = listClass.get(i);
-                                        %>
-                                        <option value="<%=c.getClassID()%>"><%=c.getClassName()%></option>
-                                        <%
-                                            }
-                                        %>
+                                        <c:forEach items="${requestScope.listClass}" var="c">
+                                            <option value="${c.classID}">${c.className}</option>
+                                        </c:forEach>
                                     </select>
                                 </td>
                             </tr>

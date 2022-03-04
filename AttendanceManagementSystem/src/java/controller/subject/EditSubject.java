@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Subject;
 
 /**
  *
@@ -24,7 +25,9 @@ public class EditSubject extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         int subjectID = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("subjectID", subjectID);
+        SubjectDBContext subjectDB = new SubjectDBContext();
+        Subject subject = subjectDB.getSubjectByID(subjectID);
+        request.setAttribute("subject", subject);
         request.getRequestDispatcher("/view/admin/edit_subject.jsp").forward(request, response);
     }
 

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Teacher;
 
 /**
  *
@@ -26,7 +27,9 @@ public class EditTeacher extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         int teacherID = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("teacherID", teacherID);
+        TeacherDBContext teacherDB = new TeacherDBContext();
+        Teacher t = teacherDB.getTeacherByID(teacherID);
+        request.setAttribute("teacher", t);
         request.getRequestDispatcher("/view/admin/edit_teacher.jsp").forward(request, response);
     }
 

@@ -32,7 +32,9 @@ public class EditStudent extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         String studentID = request.getParameter("id");
-        request.setAttribute("studentID", studentID);
+        StudentDBContext studentDB = new StudentDBContext();
+        Student s = studentDB.getStudentByID(studentID);
+        request.setAttribute("student", s);
         ClassDBContext classDB = new ClassDBContext();
         ArrayList<model.Class> listClass = classDB.getClasses("");
         request.setAttribute("listClass", listClass);

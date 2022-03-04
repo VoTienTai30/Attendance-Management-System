@@ -12,15 +12,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Class</title>
         <link href="../../css/EditClassAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            int classID = Integer.parseInt(request.getAttribute("classID").toString());
-            Account acc = (Account) request.getSession().getAttribute("account");
-        %>
     </head>
     <body>
         <header>
             <a href="../../admin/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -36,7 +32,7 @@
 
         <div id="class">
             <form action="../class/edit" method="post">
-                <input type="hidden" name="classID" value="<%=classID%>">
+                <input type="hidden" name="classID" value="${requestScope.classID}">
                 <table>
                     <tr>
                         <th colspan="2">Edit Class</th>

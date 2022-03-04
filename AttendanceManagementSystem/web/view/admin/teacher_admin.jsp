@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Teacher"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Account"%>
@@ -14,15 +15,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Teacher</title>
         <link href="../css/TeacherAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            Account acc = (Account) request.getSession().getAttribute("account");
-            ArrayList<Teacher> list = (ArrayList<Teacher>) request.getAttribute("list");
-        %>
     </head>
     <body>
         <header>
             <a href="../admin/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -103,29 +100,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            for (int i = 0; i < list.size(); i++) {
-                                Teacher teacher = list.get(i);
-                        %>
-                        <tr>
-                            <td><%=i + 1%></td>
-                            <td><%=teacher.getTeacherName()%></td>
-                            <% if (teacher.isTeacherGender()) {
-                            %>
-                            <td>Male</td>
-                            <% } else { %>
-                            <td>Female</td>
-                            <%}%>
-                            <td><%=teacher.getTeacherAddress()%></td>
-                            <td><%=teacher.getTeacherEmail()%></td>
-                            <td><%=teacher.getTeacherPhone()%></td>
-                            <td><%=teacher.getTeacherDOB()%></td>
-                            <td><a href="../admin/teacher/edit?id=<%=teacher.getTeacherID()%>">Edit</a></td>
-                            <td><a href="../admin/teacher/delete?id=<%=teacher.getTeacherID()%>">Delete</a></td>
-                        </tr>
-                        <%
-                            }
-                        %>
+                        <c:set var="i" value="1"></c:set>
+                        <c:forEach items="${requestScope.list}" var="teacher">
+                            <tr>
+                                <td>${i}<c:set var="i" value="${i+1}"></c:set></td>
+                                <td>${teacher.teacherName}</td>
+                                <td><c:if test="${teacher.teacherGender}">Male</c:if><c:if test="${teacher.teacherGender==false}">Female</c:if></td>
+                                <td>${teacher.teacherAddress}</td>
+                                <td>${teacher.teacherEmail}</td>
+                                <td>${teacher.teacherPhone}</td>
+                                <td>${teacher.teacherDOB}</td>
+                                <td><a href="../admin/teacher/edit?id=${teacher.teacherID}">Edit</a></td>
+                                <td><a href="../admin/teacher/delete?id=${teacher.teacherID}">Delete</a></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

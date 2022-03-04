@@ -12,12 +12,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         <link href="../css/HomeStudentStyle.css" rel="stylesheet" type="text/css"/>
-        <%Account acc = (Account) request.getSession().getAttribute("account");%>
     </head>
     <body>
         <header>
             <a href="../student/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">

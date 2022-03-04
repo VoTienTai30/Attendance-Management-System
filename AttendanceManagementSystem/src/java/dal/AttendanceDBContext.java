@@ -52,6 +52,20 @@ public class AttendanceDBContext extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
@@ -83,6 +97,20 @@ public class AttendanceDBContext extends DBContext {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
                 Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

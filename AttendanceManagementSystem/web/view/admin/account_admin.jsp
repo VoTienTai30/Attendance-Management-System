@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,16 +14,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account</title>
         <link href="../css/AccountAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            Account acc = (Account) request.getSession().getAttribute("account");
-            ArrayList<Account> list = (ArrayList<Account>) request.getAttribute("list");
-            int x = 1;
-        %>
     </head>
     <body>
         <header>
             <a href="../admin/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -49,22 +45,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            for (int i = 0; i < list.size(); i++) {
-                                Account a = list.get(i);
-                                if (a.getRole().getRoleID() == 1) {
-                        %>
-                        <tr>
-                            <td><%=x%></td>
-                            <td><%=a.getUser()%></td>
-                            <td><%=a.getPass()%></td>
-                            <td><%=a.getDisplayName()%></td>
-                        </tr>
-                        <%
-                                    x++;
-                                }
-                            }
-                        %>
+                        <c:set var="x" value="1"></c:set>
+                        <c:forEach items="${requestScope.list}" var="a">
+                            <c:if test="${a.role.roleID==1}">
+                                <tr>
+                                    <td>${x}<c:set var="x" value="${x+1}"></c:set></td>
+                                    <td>${a.user}</td>
+                                    <td>${a.pass}</td>
+                                    <td>${a.displayName}</td>
+                                </tr>
+                            </c:if>
+                        </c:forEach> 
                     </tbody>
                 </table>
 
@@ -79,23 +70,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            x = 1;
-                            for (int i = 0; i < list.size(); i++) {
-                                Account a = list.get(i);
-                                if (a.getRole().getRoleID() == 2) {
-                        %>
-                        <tr>
-                            <td><%=x%></td>
-                            <td><%=a.getUser()%></td>
-                            <td><%=a.getPass()%></td>
-                            <td><%=a.getDisplayName()%></td>
-                        </tr>
-                        <%
-                                    x++;
-                                }
-                            }
-                        %>
+                        <c:set var="x" value="1"></c:set>
+                        <c:forEach items="${requestScope.list}" var="a">
+                            <c:if test="${a.role.roleID==2}">
+                                <tr>
+                                    <td>${x}<c:set var="x" value="${x+1}"></c:set></td>
+                                    <td>${a.user}</td>
+                                    <td>${a.pass}</td>
+                                    <td>${a.displayName}</td>
+                                </tr>
+                            </c:if>
+                        </c:forEach> 
                     </tbody>
                 </table>
 
@@ -110,23 +95,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            x = 1;
-                            for (int i = 0; i < list.size(); i++) {
-                                Account a = list.get(i);
-                                if (a.getRole().getRoleID() == 3) {
-                        %>
-                        <tr>
-                            <td><%=x%></td>
-                            <td><%=a.getUser()%></td>
-                            <td><%=a.getPass()%></td>
-                            <td><%=a.getDisplayName()%></td>
-                        </tr>
-                        <%
-                                    x++;
-                                }
-                            }
-                        %>
+                        <c:set var="x" value="1"></c:set>
+                        <c:forEach items="${requestScope.list}" var="a">
+                            <c:if test="${a.role.roleID==3}">
+                                <tr>
+                                    <td>${x}<c:set var="x" value="${x+1}"></c:set></td>
+                                    <td>${a.user}</td>
+                                    <td>${a.pass}</td>
+                                    <td>${a.displayName}</td>
+                                </tr>
+                            </c:if>
+                        </c:forEach> 
                     </tbody>
                 </table>
             </div> 

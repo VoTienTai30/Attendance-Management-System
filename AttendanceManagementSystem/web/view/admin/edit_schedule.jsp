@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dal.ScheduleDBContext"%>
 <%@page import="model.Schedule"%>
 <%@page import="model.TimeSlot"%>
@@ -18,21 +19,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Schedule</title>
         <link href="../../css/EditScheduleAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            int scheduleID = Integer.parseInt(request.getAttribute("scheduleID").toString());
-            Account acc = (Account) request.getSession().getAttribute("account");
-            ArrayList<Teacher> listTeacher = (ArrayList<Teacher>) request.getAttribute("listTeacher");
-            ArrayList<Subject> listSubject = (ArrayList<Subject>) request.getAttribute("listSubject");
-            ArrayList<model.Class> listClass = (ArrayList<model.Class>) request.getAttribute("listClass");
-            ArrayList<TimeSlot> listTimeSlot = (ArrayList<TimeSlot>) request.getAttribute("listTimeSlot");
-            ScheduleDBContext scheduleDB = new ScheduleDBContext();
-            Schedule schedule = scheduleDB.getScheduleByID(scheduleID);
-        %>
     </head>
     <body>
         <header>
             <a href="../../admin/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -48,7 +39,7 @@
 
         <div id="schedule">
             <form action="../schedule/edit" method="post">
-                <input type="hidden" name="scheduleID" value="<%=scheduleID%>">
+                <input type="hidden" name="scheduleID" value="${requestScope.schedule.scheduleID}">
                 <table>
                     <tr>
                         <th colspan="2">Edit Schedule</th>
@@ -57,11 +48,9 @@
                         <td>Teacher:</td>
                         <td>
                             <select name="teacherID">
-                                <% for (int i = 0; i < listTeacher.size(); i++) {
-                                        Teacher teacher = listTeacher.get(i);
-                                %>
-                                <option <% if (schedule.getTeacherID().getTeacherID() == teacher.getTeacherID()) {%>selected="selected"<%}%> value="<%=teacher.getTeacherID()%>"><%=teacher.getTeacherName()%></option>
-                                <%}%>
+                                <c:forEach items="${requestScope.listTeacher}" var="teacher">
+                                    <option <c:if test="${requestScope.schedule.teacherID.teacherID==teacher.teacherID}">selected="selected"</c:if> value="${teacher.teacherID}">${teacher.teacherName}</option>
+                                </c:forEach>
                             </select>
                         </td>
                     </tr>
@@ -69,11 +58,9 @@
                         <td>Subject:</td>
                         <td>
                             <select name="subjectID">
-                                <% for (int i = 0; i < listSubject.size(); i++) {
-                                        Subject subject = listSubject.get(i);
-                                %>
-                                <option <% if (schedule.getSubjectID().getSubjectID() == subject.getSubjectID()) {%>selected="selected"<%}%> value="<%=subject.getSubjectID()%>"><%=subject.getSubjectName()%></option>
-                                <%}%>
+                                <c:forEach items="${requestScope.listSubject}" var="subject">
+                                    <option <c:if test="${requestScope.schedule.subjectID.subjectID==subject.subjectID}">selected="selected"</c:if> value="${subject.subjectID}">${subject.subjectName}</option>
+                                </c:forEach>
                             </select>
                         </td>
                     </tr>
@@ -81,11 +68,9 @@
                         <td>Class:</td>
                         <td>
                             <select name="classID">
-                                <% for (int i = 0; i < listClass.size(); i++) {
-                                        model.Class classes = listClass.get(i);
-                                %>
-                                <option <% if (schedule.getClassID().getClassID() == classes.getClassID()) {%>selected="selected"<%}%> value="<%=classes.getClassID()%>"><%=classes.getClassName()%></option>
-                                <%}%>
+                                <c:forEach items="${requestScope.listClass}" var="class">
+                                    <option <c:if test="${requestScope.schedule.classID.classID==class.classID}">selected="selected"</c:if> value="${class.classID}">${class.className}</option>
+                                </c:forEach>
                             </select>
                         </td>
                     </tr>
@@ -93,17 +78,15 @@
                         <td style="width: 70px;">Time Slot:</td>
                         <td>
                             <select name="timeSlotID">
-                                <% for (int i = 0; i < listTimeSlot.size(); i++) {
-                                        TimeSlot timeSlot = listTimeSlot.get(i);
-                                %>
-                                <option <% if (schedule.getTimeSlotID().getTimeSlotID() == timeSlot.getTimeSlotID()) {%>selected="selected"<%}%> value="<%=timeSlot.getTimeSlotID()%>"><%=timeSlot.getTimeSlotStart()%> - <%=timeSlot.getTimeSlotEnd()%></option>
-                                <%}%>
+                                <c:forEach items="${requestScope.listTimeSlot}" var="timeSlot">
+                                    <option <c:if test="${requestScope.schedule.timeSlotID.timeSlotID==timeSlot.timeSlotID}">selected="selected"</c:if> value="${timeSlot.timeSlotID}">${timeSlot.timeSlotStart} - ${timeSlot.timeSlotEnd}</option>
+                                </c:forEach>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Date:</td>
-                        <td><input value="<%=schedule.getScheduleDate()%>" name="date" type="date" style="width: 79%;"></td>
+                        <td><input value="${requestScope.schedule.scheduleDate}" name="date" type="date" style="width: 79%;"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" id="submit-btn" value="Save"></td>

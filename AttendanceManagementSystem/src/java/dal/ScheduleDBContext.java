@@ -119,11 +119,11 @@ public class ScheduleDBContext extends DBContext {
         ArrayList<Schedule> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM \n"
-                    + "(SELECT ROW_NUMBER() OVER (ORDER BY ScheduleDate DESC) AS row_index, * FROM dbo.Schedule) schedule\n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY ScheduleID DESC) AS row_index, * FROM dbo.Schedule) schedule\n"
                     + "WHERE row_index BETWEEN (? - 1) * ? + 1 AND ? * ?";
             if (date != null) {
                 sql = "SELECT * FROM \n"
-                        + "(SELECT ROW_NUMBER() OVER (ORDER BY ScheduleDate DESC) AS row_index, * FROM dbo.Schedule WHERE ScheduleDate = ?) schedule\n"
+                        + "(SELECT ROW_NUMBER() OVER (ORDER BY ScheduleID DESC) AS row_index, * FROM dbo.Schedule WHERE ScheduleDate = ?) schedule\n"
                         + "WHERE row_index BETWEEN (? - 1) * ? + 1 AND ? * ?";
             }
             PreparedStatement stm = connection.prepareStatement(sql);

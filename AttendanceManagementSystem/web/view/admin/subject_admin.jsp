@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Semester"%>
 <%@page import="model.Subject"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,15 +16,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Subject</title>
         <link href="../css/SubjectAdminStyle.css" rel="stylesheet" type="text/css"/>
-        <%
-            Account acc = (Account) request.getSession().getAttribute("account");
-            ArrayList<Subject> list = (ArrayList<Subject>) request.getAttribute("list");
-        %>
     </head>
     <body>
         <header>
             <a href="../admin/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -94,22 +91,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            for (int i = 0; i < list.size(); i++) {
-                                Subject subject = list.get(i);
-                        %>
-                        <tr>
-                            <td><%=i + 1%></td>
-                            <td><%=subject.getSubjectCode()%></td>
-                            <td><%=subject.getSubjectName()%></td>
-                            <td><%=subject.getTotalSlot()%></td>
-                            <td><%=subject.getSemester().getSemesterName()%></td>
-                            <td><a href="../admin/subject/edit?id=<%=subject.getSubjectID()%>">Edit</a></td>
-                            <td><a href="../admin/subject/delete?id=<%=subject.getSubjectID()%>">Delete</a></td>
-                        </tr>
-                        <%
-                            }
-                        %>
+                        <c:set var="i" value="1"></c:set>
+                        <c:forEach items="${requestScope.list}" var="s">
+                            <tr>
+                                <td>${i}<c:set var="i" value="${i+1}"></c:set></td>
+                                <td>${s.subjectCode}</td>
+                                <td>${s.subjectName}</td>
+                                <td>${s.totalSlot}</td>
+                                <td>${s.semester.semesterName}</td>
+                                <td><a href="../admin/subject/edit?id=${s.subjectID}">Edit</a></td>
+                                <td><a href="../admin/subject/delete?id=${s.subjectID}">Delete</a></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

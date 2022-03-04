@@ -57,11 +57,10 @@ header {
 
 #schedule {
     margin-left: 222.15px;
-    margin-top: 68px;
+    margin-top: 61px;
     display: flex;
     justify-content: space-evenly;
     font-family: calibri;
-    padding-bottom: 20px;
 }
 
 #add-schedule {
@@ -121,13 +120,13 @@ header {
     background: #fff;
 }
 
-#schedule-list form{
+#searchDateForm{
     margin: 20px 0;
     display: flex;
     justify-content: center;
 }
 
-#schedule-list form input:first-child{
+#searchDateForm input:first-child{
     width: 300px;
     border: #d0d1d3 1px solid;
     border-top-left-radius: 5px;
@@ -140,7 +139,7 @@ header {
     padding-left: 7px;
 }
 
-#schedule-list form input:last-child{
+#searchDateForm input:last-child{
     font-size: 17px;
     font-family: calibri;
     padding: 7px 20px;
@@ -175,4 +174,19 @@ header {
 
 #schedule-table th{
     padding: 5px 10px;
+}
+
+#searchPage{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#goPage{
+    border-radius: 5px;
+    border: 0;
+    background: #f47424;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 12px;
 }

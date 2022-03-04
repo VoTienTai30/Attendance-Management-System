@@ -4,6 +4,7 @@
     Author     : midni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Subject"%>
 <%@page import="model.StudentAttendance"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,17 +17,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Attendance</title>
         <link href="../css/ViewAttendance.css" rel="stylesheet" type="text/css"/>
-        <%
-            Account acc = (Account) request.getSession().getAttribute("account");
-            int subjectID = Integer.parseInt(request.getAttribute("subjectID").toString());
-            ArrayList<Subject> listSubject = (ArrayList<Subject>) request.getAttribute("listSubject");
-            ArrayList<StudentAttendance> studentAttendance = (ArrayList<StudentAttendance>) request.getAttribute("listStudentAttendance");
-        %>
     </head>
     <body>
         <header>
             <a href="../student/home" id="header-title">Student Attendance Management System</a>
-            <div id="logout">Welcome: <%=acc.getDisplayName()%> | <a href="../logout">Log out</a> </div>
+            <div id="logout">Welcome: ${sessionScope.account.displayName} | <a href="../logout">Log out</a> </div>
         </header>
 
         <div id="nav-bar">
@@ -41,10 +36,9 @@
                 <div id="search-form">
                     <form action="view-attendance" id="searchAttendance" method="POST">
                         <select name="subjectID" onchange="submitForm()">
-                            <% for (int i = 0; i < listSubject.size(); i++) {
-                                    Subject s = listSubject.get(i);%>
-                            <option value="<%=s.getSubjectID()%>" <%if (subjectID == s.getSubjectID()) {%>selected="selected"<%}%>><%=s.getSubjectName()%></option>
-                            <%} %>
+                            <c:forEach items="${requestScope.listSubject}" var="s">
+                                <option value="${s.subjectID}" <c:if test="${requestScope.subjectID==s.subjectID}">selected="selected"</c:if>>${s.subjectName}</option>
+                            </c:forEach>
                         </select>
                     </form> 
                 </div>
@@ -61,18 +55,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (int i = 0; i < studentAttendance.size(); i++) {
-                                StudentAttendance sa = studentAttendance.get(i);
-                        %>
-                        <tr>
-                            <td><%=i + 1%></td>
-                            <td><%=sa.getScheduleDate()%></td>
-                            <td><%=sa.getTimeslot().getTimeSlotStart()%> - <%=sa.getTimeslot().getTimeSlotEnd()%></td>
-                            <td><%=sa.getTeacherName()%></td>
-                            <td><%=sa.getClassName()%></td>
-                            <td><% if (sa.isPresent()) {%><span style="color: rgb(0, 128, 0)">Present</span><%} else {%><span style="color: rgb(255, 0, 0)">Absent</span><%} %></td>
-                        </tr>
-                        <%}%>
+                        <c:set var="i" value="1"></c:set>
+                        <c:forEach items="${requestScope.listStudentAttendance}" var="sa">
+                            <tr>
+                                <td>${i}<c:set var="i" value="${i+1}"></c:set></td>
+                                <td>${sa.scheduleDate}</td>
+                                <td>${sa.timeslot.timeSlotStart} - ${sa.timeslot.timeSlotEnd}</td>
+                                <td>${sa.teacherName}</td>
+                                <td>${sa.className}</td>
+                                <td><c:if test="${sa.present}"><span style="color: rgb(0, 128, 0)">Present</span></c:if><c:if test="${sa.present==false}"><span style="color: rgb(255, 0, 0)">Absent</span></c:if></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
